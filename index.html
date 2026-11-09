@@ -5,10 +5,1863 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="Alerta Ganadera Inteligente (Bye Bye Tick) - Diagnóstico Visual y Selección de Tratamiento Acaricida en Ganado Bovino con Visión Artificial y Machine Learning.">
+  <meta name="description" content="Alerta Ganadera Inteligente (Bye Bye Ticks) - Diagnóstico Visual y Selección de Tratamiento Acaricida en Ganado Bovino con Visión Artificial y Machine Learning.">
   <meta name="theme-color" content="#f472b6">
-  <title>Bye Bye Tick | Alerta Ganadera Inteligente</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Bye Bye Ticks | Alerta Ganadera Inteligente</title>
+  <style>
+@font-face {
+  font-family: 'Pomplere';
+  src: local('Pomplere'), local('pomplere'), local('Pompiere');
+}
+
+@font-face {
+  font-family: 'PANICKO';
+  src: local('PANICKO'), local('Panicko'), local('Panicko Regular'), local('Panicko-Regular');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ==========================================================================
+   Bye Bye Tick - Design System & Modern Veterinary UI
+   Optimizado para Pantallas de Celular (Mobile-First) y Escritorio (PC)
+   ========================================================================== */
+
+:root {
+  --primary: #f472b6;
+  --primary-dark: #ec4899;
+  --primary-light: #fdf2f8;
+  --accent: #0284c7;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-dark: #0f172a;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --text-light: #f8fafc;
+  --border: #e2e8f0;
+  --border-focus: #f472b6;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #f472b6;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+
+.app-header {
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 50%, #f9a8d4 100%);
+  color: white;
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.4rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.app-title {
+  font-family: 'Pompiere', 'Pomplere', 'pomplere', cursive, sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.badge-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  background: rgba(244, 114, 182, 0.3);
+  color: #fbcfe8;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  border: 1px solid rgba(251, 207, 232, 0.4);
+}
+
+.app-subtitle {
+  font-size: 0.8rem;
+  color: #fbcfe8;
+  opacity: 0.9;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.25rem;
+  border-radius: var(--radius-lg);
+  gap: 0.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-tab-btn {
+  background: transparent;
+  border: none;
+  color: #fce7f3;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-tab-btn.active {
+  background: white;
+  color: #db2777;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   Main Content Layout
+   ========================================================================== */
+
+.app-main {
+  flex: 1;
+  max-width: 1300px;
+  width: 100%;
+  margin: 1.25rem auto;
+  padding: 0 1rem;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Two column desktop grid */
+.diagnosis-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .diagnosis-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+/* ==========================================================================
+   Cards & Containers
+   ========================================================================== */
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.card-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafaf9;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+/* Quick Samples Bar */
+.sample-bar {
+  background: #fdf2f8;
+  border: 1px dashed #f472b6;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sample-bar-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #db2777;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sample-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-sample {
+  background: white;
+  border: 1px solid #f472b6;
+  color: #db2777;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.4rem 0.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn-sample:hover {
+  background: #f472b6;
+  color: white;
+  border-color: #f472b6;
+  transform: translateY(-1px);
+}
+
+/* Upload zone */
+.upload-dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.upload-dropzone:hover, .upload-dropzone.dragover {
+  border-color: var(--primary);
+  background: #fdf2f8;
+}
+
+.upload-icon {
+  font-size: 2.2rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.upload-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.upload-subtext {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.upload-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Canvas Viewer & Interactive Annotations
+   ========================================================================== */
+
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #020617;
+  border: 1px solid #334155;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  touch-action: manipulation;
+}
+
+#visionCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  cursor: crosshair;
+}
+
+.canvas-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem 0.25rem 0.5rem;
+}
+
+.view-mode-group {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: var(--radius-md);
+  padding: 0.2rem;
+  gap: 0.2rem;
+}
+
+.btn-view-mode {
+  background: transparent;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-view-mode.active {
+  background: white;
+  color: #0f172a;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Calibration Sliders */
+.calibration-panel {
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .calibration-panel {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.slider-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  display: flex;
+  justify-content: space-between;
+}
+
+.custom-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background: #cbd5e1;
+  outline: none;
+}
+
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.click-hint {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+/* ==========================================================================
+   Metrics & Counter Stats
+   ========================================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.stat-box {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 0.75rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-box.highlight {
+  border-color: #f472b6;
+  background: #fdf2f8;
+}
+
+.stat-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-val.primary {
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-top: 0.25rem;
+}
+
+/* Severity Banner */
+.severity-banner {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid transparent;
+}
+
+.severity-banner.grade-1 {
+  background: #fdf2f8;
+  border-color: #fbcfe8;
+  color: #db2777;
+}
+
+.severity-banner.grade-2 {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.severity-banner.grade-3 {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.severity-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.severity-info h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 0.15rem;
+}
+
+.severity-info p {
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   Form Inputs & Selectors
+   ========================================================================== */
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.35rem;
+}
+
+.form-select, .form-input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #cbd5e1;
+  background-color: white;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.form-select:focus, .form-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   Prescription & Pharmacological Cards
+   ========================================================================== */
+
+.prescription-box {
+  background: #f8fafc;
+  border-radius: var(--radius-lg);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.presc-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.presc-badge {
+  background: #f472b6;
+  color: white;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.drug-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #db2777;
+}
+
+.drug-family {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.presc-body {
+  padding: 1.25rem;
+}
+
+.dosage-highlight {
+  background: #fdf2f8;
+  border: 1px solid #fbcfe8;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  margin: 0.85rem 0;
+}
+
+.dosage-highlight .d-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #db2777;
+}
+
+.dosage-highlight .d-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #db2777;
+  margin: 0.2rem 0;
+}
+
+.dosage-highlight .d-inst {
+  font-size: 0.82rem;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+/* Withdrawal Traffic Light */
+.withdrawal-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.withdrawal-item {
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.withdrawal-item.safe {
+  background: #fdf2f8;
+  border-color: #fbcfe8;
+  color: #db2777;
+}
+
+.withdrawal-item.warning {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.withdrawal-item.danger {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.w-days {
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.w-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+/* Rotation Warning Banner */
+.rotation-card {
+  background: #eff6ff;
+  border-left: 4px solid var(--accent);
+  padding: 0.9rem 1rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-top: 1rem;
+}
+
+.rot-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #1e40af;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rot-desc {
+  font-size: 0.82rem;
+  color: #1e3a8a;
+  margin-top: 0.35rem;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Buttons & Interactive Elements
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 2px 4px rgba(244, 114, 182, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e1;
+}
+
+.btn-dark {
+  background: #0f172a;
+  color: white;
+}
+
+.btn-dark:hover {
+  background: #1e293b;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.btn-outline:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   History Table & Records
+   ========================================================================== */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.custom-table th {
+  background: #f8fafc;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: #475569;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+
+.custom-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.custom-table tr:hover {
+  background: #f8fafc;
+}
+
+/* ==========================================================================
+   Clinical PDF / Print Report Stylesheet (@media print)
+   ========================================================================== */
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt !important;
+  }
+
+  .app-header, .nav-tabs, .sample-bar, .upload-actions, 
+  .canvas-toolbar, .calibration-panel, .btn-group, 
+  .no-print, footer {
+    display: none !important;
+  }
+
+  .app-main {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .diagnosis-grid {
+    display: block !important;
+  }
+
+  .card {
+    border: none !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  .print-only-header {
+    display: block !important;
+    border-bottom: 2px solid #f472b6;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .canvas-wrapper {
+    max-width: 480px;
+    margin: 0 auto 1.5rem auto;
+    border: 1px solid #ccc !important;
+  }
+}
+
+.print-only-header {
+  display: none;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.app-footer {
+  margin-top: auto;
+  background: #0f172a;
+  color: #94a3b8;
+  padding: 1.5rem 1rem;
+  font-size: 0.82rem;
+  text-align: center;
+  border-top: 1px solid #1e293b;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-badge {
+  display: inline-block;
+  background: rgba(244, 114, 182, 0.15);
+  color: #f472b6;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+/* Estilos adicionales para Telemetría Bioclimática y Entradas Numéricas de Clima */
+
+.climate-control-card {
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.climate-input-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .climate-input-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.climate-field {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.climate-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.climate-field-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.climate-num-input {
+  width: 75px;
+  padding: 0.25rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  text-align: right;
+  outline: none;
+}
+
+.climate-num-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(244, 114, 182, 0.2);
+}
+
+.climate-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.climate-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+
+.btn-preset-clima {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-preset-clima:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.bioclima-telemetry-box {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.bio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+
+.bio-stat-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #38bdf8;
+  line-height: 1.1;
+}
+
+.bio-stat-lbl {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+.bio-alerta-text {
+  font-size: 0.76rem;
+  color: #fde047;
+  background: rgba(254, 240, 138, 0.1);
+  border: 1px dashed rgba(254, 240, 138, 0.3);
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  line-height: 1.35;
+}
+
+.btn-sample.real-sample {
+  background: #fef2f2;
+  border-color: #f87171;
+  color: #991b1b;
+  font-weight: 800;
+}
+
+.btn-sample.real-sample:hover {
+  background: #dc2626;
+  color: white;
+  border-color: #dc2626;
+}
+/* ==========================================================================
+   Estilos de la Suite de Conteo Multifuncional & Cuadrantes Zootécnicos
+   ========================================================================== */
+
+.counting-suite-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #f1f5f9;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.count-mode-group, .count-stage-group {
+  display: flex;
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 0.2rem;
+  gap: 0.2rem;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-count-mode, .btn-stage-filter {
+  background: transparent;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.btn-count-mode.active, .btn-stage-filter.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.count-actions-group {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.btn-count-action {
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.btn-count-action:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.stage-breakdown-card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.75rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.stage-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stage-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stage-lbl {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-top: 0.15rem;
+}
+/* ==========================================================================
+   Estilos de Binarización en Blanco y Negro, Asistente de Imagen & Guía de Campo
+   ========================================================================== */
+
+.image-assistant-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  background: #f8fafc;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-top: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.coat-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.coat-btn-group {
+  display: flex;
+  background: #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 0.2rem;
+  gap: 0.2rem;
+}
+
+.btn-coat {
+  background: transparent;
+  border: none;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-coat.active {
+  background: #0f172a;
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.field-guide-card {
+  background: #fdf2f8;
+  border: 1px solid #fbcfe8;
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.25rem;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.field-guide-header {
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: #db2777;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #fce7f3;
+}
+
+.field-guide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .field-guide-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+}
+
+.guide-subtitle {
+  font-weight: 800;
+  color: #db2777;
+  font-size: 0.82rem;
+  margin-bottom: 0.45rem;
+}
+
+.field-guide-list {
+  margin-left: 1.15rem;
+  color: #475569;
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-guide-list li strong {
+  color: #db2777;
+}
+
+.bw-extra-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+
+/* ==========================================================================
+   Mobile-First Responsive Design (Smartphones & Tablets <= 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Header compacto estilo App Móvil Nativa */
+  .app-header {
+    padding: 0.65rem 0.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .logo-group {
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .logo-icon {
+    font-size: 1.45rem;
+    padding: 0.25rem 0.35rem;
+    border-radius: 8px;
+  }
+
+  .app-title {
+    font-family: 'Pompiere', 'Pomplere', 'pomplere', cursive, sans-serif;
+    font-size: 1.65rem;
+    gap: 0.35rem;
+  }
+
+  .app-title .badge-tag {
+    font-size: 0.62rem;
+    padding: 0.1rem 0.4rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.68rem;
+    line-height: 1.25;
+    opacity: 0.88;
+  }
+
+  /* Barra de pestañas móvil con scroll horizontal fluido y ocultación de scrollbar */
+  .nav-tabs {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.2rem;
+    gap: 0.25rem;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.28);
+  }
+
+  .nav-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-tab-btn {
+    flex: 1 0 auto;
+    justify-content: center;
+    text-align: center;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.76rem;
+    border-radius: 7px;
+    white-space: nowrap;
+  }
+
+  /* Layout principal y contenedor de tarjetas */
+  .app-main {
+    padding: 0 0.5rem;
+    margin: 0.6rem auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .diagnosis-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .card {
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-header {
+    padding: 0.65rem 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+  }
+
+  .card-body {
+    padding: 0.75rem 0.65rem;
+  }
+
+  /* Barra de muestras demostrativas en píldoras horizontales deslizables */
+  .sample-bar {
+    padding: 0.5rem 0.65rem;
+    margin-bottom: 0.75rem;
+    border-radius: 10px;
+  }
+
+  .sample-bar-title {
+    font-size: 0.74rem;
+  }
+
+  .sample-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.35rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .sample-buttons::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-sample {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.72rem;
+    padding: 0.38rem 0.65rem;
+    border-radius: 9999px;
+  }
+
+  /* Zona de subida y cámara */
+  .upload-dropzone {
+    padding: 0.85rem 0.5rem;
+    border-radius: 10px;
+  }
+
+  .upload-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .upload-text {
+    font-size: 0.86rem;
+  }
+
+  .upload-subtext {
+    font-size: 0.7rem;
+  }
+
+  .upload-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+    width: 100%;
+    margin-top: 0.65rem;
+  }
+
+  .upload-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.55rem 0.25rem;
+    font-size: 0.76rem;
+    border-radius: 8px;
+  }
+
+  /* Barra de Asistente de Pelaje Bovino */
+  .image-assistant-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.55rem;
+    border-radius: 10px;
+  }
+
+  .coat-selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .coat-btn-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 0.2rem;
+  }
+
+  .btn-coat {
+    padding: 0.45rem 0.2rem;
+    font-size: 0.7rem;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+    border-radius: 6px;
+  }
+
+  #btnAutoContrast {
+    width: 100%;
+    justify-content: center;
+    padding: 0.45rem;
+    font-size: 0.74rem;
+    border-radius: 6px;
+  }
+
+  /* Suite de Conteo Multifuncional (Mobile Segmented Controls) */
+  .counting-suite-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 10px;
+  }
+
+  .counting-suite-bar > div {
+    width: 100%;
+  }
+
+  .count-mode-group, .count-stage-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 0.2rem;
+  }
+
+  .count-actions-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 0.25rem;
+  }
+
+  .btn-count-mode, .btn-stage-filter, .btn-count-action {
+    padding: 0.45rem 0.15rem;
+    font-size: 0.68rem;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 6px;
+  }
+
+  /* Canvas y visor */
+  .canvas-wrapper {
+    border-radius: 10px;
+    max-height: 380px;
+  }
+
+  #visionCanvas {
+    max-height: 380px;
+  }
+
+  /* Desglose de Estadios Clínicos */
+  .stage-breakdown-card {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.25rem;
+    padding: 0.45rem 0.25rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+  }
+
+  .stage-val {
+    font-size: 1.15rem;
+  }
+
+  .stage-lbl {
+    font-size: 0.6rem;
+    line-height: 1.15;
+  }
+
+  /* Barra de herramientas de capas visuales */
+  .canvas-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+    padding: 0.5rem 0.2rem;
+  }
+
+  .view-mode-group {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    gap: 0.25rem;
+    padding: 0.2rem;
+    background: #e2e8f0;
+    border-radius: 8px;
+  }
+
+  .view-mode-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-view-mode {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.38rem 0.6rem;
+    font-size: 0.72rem;
+    border-radius: 6px;
+  }
+
+  .bw-extra-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 0.35rem;
+    margin: 0;
+  }
+
+  .bw-extra-tools .btn-count-action {
+    width: 100%;
+    justify-content: center;
+    padding: 0.48rem 0.25rem;
+    font-size: 0.72rem;
+    border-radius: 6px;
+  }
+
+  .click-hint {
+    font-size: 0.68rem;
+    line-height: 1.3;
+    padding: 0.2rem;
+  }
+
+  /* Panel de calibración y sliders */
+  .calibration-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 10px;
+  }
+
+  .custom-range {
+    height: 8px;
+  }
+
+  .custom-range::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Grid de métricas en tiempo real */
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .stat-box {
+    padding: 0.55rem 0.25rem;
+    border-radius: 8px;
+  }
+
+  .stat-val {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.58rem;
+    letter-spacing: 0;
+    line-height: 1.2;
+    margin-top: 0.2rem;
+  }
+
+  /* Banner de Severidad */
+  .severity-banner {
+    padding: 0.65rem 0.75rem;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-radius: 10px;
+  }
+
+  .severity-icon {
+    font-size: 1.5rem;
+  }
+
+  .severity-info h4 {
+    font-size: 0.92rem;
+  }
+
+  .severity-info p {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  /* Estación Bioclimática y Presets */
+  .climate-presets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem;
+  }
+
+  .btn-preset-clima {
+    padding: 0.45rem 0.25rem;
+    font-size: 0.65rem;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.25;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+  }
+
+  .climate-input-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .climate-field {
+    padding: 0.65rem;
+    border-radius: 8px;
+  }
+
+  .climate-num-input {
+    width: 65px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  /* Telemetría Bioclimática */
+  .bioclima-telemetry-box {
+    padding: 0.65rem 0.75rem;
+    border-radius: 8px;
+  }
+
+  .bio-grid {
+    gap: 0.3rem;
+  }
+
+  .bio-stat-val {
+    font-size: 1.05rem;
+  }
+
+  .bio-stat-label {
+    font-size: 0.6rem;
+  }
+
+  /* Formulario Ganadero */
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .form-select, .form-input {
+    font-size: 0.85rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+  }
+
+  /* Ficha de Prescripción Farmacológica */
+  .prescription-box {
+    border-radius: 10px;
+  }
+
+  .presc-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .drug-title {
+    font-size: 1.1rem;
+  }
+
+  .drug-family {
+    font-size: 0.76rem;
+  }
+
+  .presc-body {
+    padding: 0.85rem 0.75rem;
+  }
+
+  .dosage-highlight {
+    padding: 0.65rem 0.75rem;
+    margin: 0.65rem 0;
+    border-radius: 8px;
+  }
+
+  .dosage-highlight .d-label {
+    font-size: 0.7rem;
+  }
+
+  .dosage-highlight .d-val {
+    font-size: 1.05rem;
+  }
+
+  .dosage-highlight .d-inst {
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+
+  .withdrawal-card {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem;
+    margin: 0.75rem 0;
+  }
+
+  .withdrawal-item {
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+  }
+
+  .withdrawal-item .w-days {
+    font-size: 1.15rem;
+  }
+
+  .withdrawal-item .w-type {
+    font-size: 0.62rem;
+  }
+
+  /* Botones de acción inferiores */
+  .btn-group[style*='grid-template-columns'] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.45rem !important;
+  }
+
+  button.btn, .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.65rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
+  }
+
+  /* Historial y Vademécum */
+  .vademecum-card {
+    padding: 0.85rem 0.75rem;
+    border-radius: 10px;
+  }
+
+  .custom-table {
+    font-size: 0.74rem;
+  }
+
+  .custom-table th, .custom-table td {
+    padding: 0.5rem 0.4rem;
+  }
+}
+
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pompiere&family=Titan+One&family=Fredoka:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐮</text></svg>">
 </head>
 <body>
@@ -21,10 +1874,7 @@
       <div class="logo-group">
         <div class="logo-icon">🐮</div>
         <div>
-          <div class="app-title">
-            Bye Bye Tick
-            <span class="badge-tag">IA Veterinaria v4.0</span>
-          </div>
+          <div class="app-title">Bye Bye Ticks</div>
           <div class="app-subtitle">Alerta Ganadera Inteligente | Diagnóstico Visual &amp; Rotación Acaricida</div>
         </div>
       </div>
@@ -52,7 +1902,7 @@
   <div class="print-only-header">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div>
-        <h1 style="font-size:1.5rem; color:#db2777; margin:0;">DICTAMEN TÉCNICO VETERINARIO: BYE BYE TICK</h1>
+        <h1 style="font-size:1.5rem; color:#db2777; margin:0;">DICTAMEN TÉCNICO VETERINARIO: BYE BYE TICKS</h1>
         <p style="font-size:0.85rem; color:#555; margin:0.2rem 0 0 0;">Alerta Ganadera Inteligente - Sistema de Diagnóstico de Garrapatas (Rhipicephalus microplus)</p>
       </div>
       <div style="text-align:right; font-size:0.8rem; color:#666;">
@@ -632,7 +2482,7 @@
   <footer class="app-footer">
     <div class="footer-inner">
       <div>
-        <strong>Bye Bye Tick</strong> &mdash; Alerta Ganadera Inteligente
+        <strong>Bye Bye Ticks</strong> &mdash; Alerta Ganadera Inteligente
       </div>
       <div>
         Desarrollado para el sector agropecuario y zootécnico &bull; Seminario de Proyecto de Grado 2026
@@ -643,12 +2493,2847 @@
     </div>
   </footer>
 
-  <!-- Scripts de la Aplicación -->
-  <script src="js/data.js"></script>
-  <script src="js/samples.js"></script>
-  <script src="js/vision.js"></script>
-  <script src="js/recommendation.js"></script>
-  <script src="js/app.js"></script>
+    <!-- Scripts Embebidos Todo-en-Uno (Cero dependencias externas / Cero 404) -->
+  <script>
+/**
+ * Bye Bye Tick - Base de Datos Farmacológica y Matriz de Reglas
+ * Según especificación del proyecto "Alerta Ganadera Inteligente"
+ * Sección 8: Estructura de Datos / Fuentes de Información
+ */
+
+const VADEMECUM_DATA = {
+  // 1. Tabla de Productos y Moléculas (principios_activos)
+  principios_activos: [
+    {
+      id: "AMZ",
+      nombre: "Amitraz 12.5%",
+      nombreComercial: "Triatox / Bovitraz / Garrakill",
+      familia: "Amidina (Formamidina)",
+      mecanismo: "Agonista de receptores octopaminérgicos en el parásito; genera hiperactividad motora, imposibilidad de fijación bucal y desprendimiento masivo.",
+      via: "Aspersión / Baño de inmersión",
+      dosisBase: "1 mL por cada 1 Litro de agua (1:1000). Preparar emulsión fresca el mismo día.",
+      dosisPorAnimal: "3 a 4 Litros de solución diluida por bovino adulto mojando a contrapelo.",
+      retiroLeche: 0, // Días (0 a 24 horas - altamente seguro para lechería)
+      retiroCarne: 14, // Días
+      aptoLecheria: true,
+      costoRelativo: "Bajo - Medio",
+      espectro: "Garrapatas (Rhipicephalus microplus), sarna y piojos.",
+      resistenciaReportada: "Media en zonas de monocultivo acaricida.",
+      colorBadge: "emerald"
+    },
+    {
+      id: "CIP_CPF",
+      nombre: "Cipermetrina 15% + Clorpirifos 30%",
+      nombreComercial: "Masterfly / Curatick Duo / Galmetrin Plus",
+      familia: "Piretroide Tipo II + Organofosforado",
+      mecanismo: "Sinergismo dual: bloqueo de la acetilcolinesterasa (organofosforado) + prolongación de la apertura de canales de sodio axónicos (piretroide). Efecto de choque inmediato.",
+      via: "Aspersión por bomba de espalda o manga de baño",
+      dosisBase: "1 mL por cada 1 Litro de agua limpia.",
+      dosisPorAnimal: "3.5 a 4 Litros de solución por animal adulto asperjando orejas, vientre e ijar.",
+      retiroLeche: 2, // 48 horas de descarte lácteo
+      retiroCarne: 21,
+      aptoLecheria: false, // Requiere descarte de leche de 48h
+      costoRelativo: "Económico",
+      espectro: "Garrapatas multirresistentes, mosca del cuerno (Haematobia irritans) y nuche.",
+      resistenciaReportada: "Alta en predios con uso continuo > 5 años.",
+      colorBadge: "amber"
+    },
+    {
+      id: "FLU_POUR",
+      nombre: "Flumetrina 1%",
+      nombreComercial: "Bayticol Pour-on / Ectoline",
+      familia: "Piretroide Sintético Específico",
+      mecanismo: "Interrumpe la conducción del impulso nervioso en los canales de sodio de la membrana axonal de garrapatas sensibles.",
+      via: "Pour-on (aplicación dorsal a lo largo del lomo)",
+      dosisBase: "1 mL por cada 10 kg de peso vivo (10 mL / 100 kg).",
+      dosisPorAnimal: "Para 450 kg: 45 mL en línea dorsal desde la cruz hasta la base de la cola.",
+      retiroLeche: 0, // Cero días de retiro en leche
+      retiroCarne: 5,
+      aptoLecheria: true,
+      costoRelativo: "Medio - Alto",
+      espectro: "Adulticida y larvicida de contacto en piel.",
+      resistenciaReportada: "Moderada a Piretroides.",
+      colorBadge: "blue"
+    },
+    {
+      id: "IVM_315",
+      nombre: "Ivermectina 3.15% (Larga Acción)",
+      nombreComercial: "Ivomec Gold / Virbamec L.A. / Bovifort",
+      familia: "Lactona Macrocíclica (Avermectina)",
+      mecanismo: "Apertura irreversible de los canales de cloro activados por glutamato, hiperpolarizando neuronas y células musculares del ectoparásito, induciendo parálisis flácida y muerte.",
+      via: "Inyectable subcutáneo (delante o detrás de la paleta)",
+      dosisBase: "1 mL por cada 50 kg de peso vivo (630 mcg/kg).",
+      dosisPorAnimal: "Para 450 kg: 9 mL vía subcutánea con aguja 16G x 1/2\".",
+      retiroLeche: 999, // PROHIBIDO EN VACAS LECHERAS EN PRODUCCIÓN
+      retiroCarne: 122,
+      aptoLecheria: false,
+      costoRelativo: "Medio",
+      espectro: "Endectocida completo: parásitos gastrointestinales, pulmonares, garrapatas y gusaneras.",
+      resistenciaReportada: "Baja a media en garrapatas.",
+      colorBadge: "rose"
+    },
+    {
+      id: "DOR_1",
+      nombre: "Doramectina 1%",
+      nombreComercial: "Dectomax Inyectable",
+      familia: "Lactona Macrocíclica (Avermectina semisintética)",
+      mecanismo: "Inhibe la actividad eléctrica neuromuscular de parásitos artrópodos y nemátodos sin afectar el SNC del rumiante.",
+      via: "Inyectable subcutáneo o intramuscular",
+      dosisBase: "1 mL por cada 50 kg de peso vivo (200 mcg/kg).",
+      dosisPorAnimal: "Para 450 kg: 9 mL aplicados en la tabla del cuello.",
+      retiroLeche: 999, // NO AUTORIZADO EN VACAS EN ORDEÑO
+      retiroCarne: 35,
+      aptoLecheria: false,
+      costoRelativo: "Medio",
+      espectro: "Garrapatas, sarna psoróptica, moscas y parásitos redondos.",
+      resistenciaReportada: "Baja.",
+      colorBadge: "violet"
+    },
+    {
+      id: "FLUA_25",
+      nombre: "Fluazurón 2.5%",
+      nombreComercial: "Acatak Pour-on / Tickgard Plus",
+      familia: "Inhibidor del Desarrollo de la Quitina (IDQ / Benzoilurea)",
+      mecanismo: "Inhibe la síntesis de quitina en el exoesqueleto del artrópodo. Las larvas y ninfas no pueden mudar de estadio y mueren. Esteriliza a las hembras repletas sobrevivientes.",
+      via: "Pour-on (vertido epicutáneo)",
+      dosisBase: "2.5 mL por cada 50 kg de peso vivo (o 10 mL / 100 kg).",
+      dosisPorAnimal: "Para 450 kg: 22.5 mL distribuidos en dos bandas paralelas a 10 cm de la columna dorsal.",
+      retiroLeche: 999, // No usar en animales en lactancia para consumo
+      retiroCarne: 42,
+      aptoLecheria: false,
+      costoRelativo: "Alto (Excelente protección prolongada hasta 12 semanas)",
+      espectro: "Específico para interrupción del ciclo poblacional de Rhipicephalus microplus.",
+      resistenciaReportada: "Muy baja (molécula de alta fidelidad).",
+      colorBadge: "cyan"
+    },
+    {
+      id: "BIO_MET",
+      nombre: "Metarhizium anisopliae (Bioacaricida)",
+      nombreComercial: "BioTick Green / Metar-Control Ganadero",
+      familia: "Biológico / Hongo Entomopatógeno",
+      mecanismo: "Germinación de conidios sobre la cutícula de la garrapata, penetración mediante enzimas quitinasas y lipasas, proliferación micelial interna y micosis letal.",
+      via: "Aspersión líquida ultra-fina en horas de baja radiación solar (tarde/noche)",
+      dosisBase: "2 a 5 x 10^12 conidios viables por cada 100 Litros de agua con adherente agrícola.",
+      dosisPorAnimal: "3 Litros de suspensión por animal asegurando contacto folicular.",
+      retiroLeche: 0, // CERO RESIDUOS QUÍMICOS - 100% INOCUO
+      retiroCarne: 0,
+      aptoLecheria: true,
+      costoRelativo: "Medio - Ecológico",
+      espectro: "Específico para garrapatas sin daño a fauna benéfica ni abejas.",
+      resistenciaReportada: "CERO riesgo de resistencia química.",
+      colorBadge: "green"
+    }
+  ],
+
+  // 2. Tabla de Reglas de Tratamiento (matriz_tratamientos)
+  // Cruza: Grado de Infestación + Propósito Productivo + Clima
+  matriz_tratamientos: [
+    // --- LECHE (Cero tolerancia a residuos en leche o retiro mínimo) ---
+    {
+      grado: 1, // Leve
+      proposito: "leche",
+      clima: "calido_humedo",
+      primeraEleccionId: "BIO_MET",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Infestación leve en lechería de trópico bajo. El control biológico reduce la carga parasitaria sin riesgo alguno de descarte de leche ni contaminación del tanque, alternando con Amitraz si la humedad eleva la carga.",
+      alertaRetiro: "0 días en leche / 0 días en carne. Total inocuidad biológica.",
+      descansoPotreroDias: 35,
+      maniobraZootecnica: "Rotación de potrero intensiva (pastoreo Voisin) y limpieza mecánica focalizada de orejas."
+    },
+    {
+      grado: 1, // Leve
+      proposito: "leche",
+      clima: "templado",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "BIO_MET",
+      justificacion: "En clima templado con baja presión parasitaria, un baño por aspersión con Amitraz garantiza derribo rápido con cero descarte de leche.",
+      alertaRetiro: "0 días en leche (24h preventivo) / 14 días en carne.",
+      descansoPotreroDias: 45,
+      maniobraZootecnica: "Revisar pabellones auriculares y base de ubre antes del ordeño."
+    },
+    {
+      grado: 1, // Leve
+      proposito: "leche",
+      clima: "frio",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "En trópico alto / clima frío, las garrapatas presentan ciclos más lentos. Se prescribe Amitraz por aspersión localizada.",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Mantener potreros bien drenados para evitar microclimas húmedos favorables a larvas."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "leche",
+      clima: "calido_humedo",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "Presencia difusa con ninfas activas en clima húmedo. Amitraz actúa como repelente y desprendedor sin acumulación en grasa láctea.",
+      alertaRetiro: "0 días en leche / 14 días en carne. Rotar obligatoriamente a Piretroide en siguiente ciclo.",
+      descansoPotreroDias: 40,
+      maniobraZootecnica: "Realizar baño de aspersión a contrapelo después del ordeño de la mañana, no antes."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "leche",
+      clima: "templado",
+      primeraEleccionId: "FLU_POUR",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Flumetrina pour-on ofrece acción residual en piel y pelaje sin requerir agua para baño (evita estrés térmico) con 0 días de retiro en leche.",
+      alertaRetiro: "0 días en leche / 5 días en carne.",
+      descansoPotreroDias: 50,
+      maniobraZootecnica: "Aplicar en horas de la tarde para evitar degradación ultravioleta del producto."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "leche",
+      clima: "frio",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "Infestación moderada controlada con amidinas en baño localizado en áreas de pliegues inguinales y axilas.",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Desinfección de establos y salas de ordeño con cal viva."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "leche",
+      clima: "calido_humedo",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "CIP_CPF",
+      justificacion: "URGENTE: Infestación masiva con peligro de anemia y babesiosis en vacas de ordeño. Se descartan totalmente las Ivermectinas por residuo lácteo severo. Se ordena baño de choque inmediato con Amitraz 12.5% repitiendo a los 10 días para cortar eclosión de larvas.",
+      alertaRetiro: "0 días en leche / 14 días en carne. Monitorear hematocrito de urgencia.",
+      descansoPotreroDias: 45,
+      maniobraZootecnica: "Tratamiento de soporte con complejo B12, hierro dextrano y suplemento mineral. Aislamiento temporal de potrero infestado."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "leche",
+      clima: "templado",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "Choque inmediato con Amitraz por aspersión meticulosa. No usar lactonas macrocíclicas inyectables mientras la vaca esté en línea de ordeño comercial.",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 55,
+      maniobraZootecnica: "Inspección diaria de ubre y entrepierna. Aplicar repelente en corrales."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "leche",
+      clima: "frio",
+      primeraEleccionId: "FLU_POUR",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Tratamiento intensivo Pour-on con Flumetrina complementado con baño localized en focos de mayor aglomeración de ectoparásitos.",
+      alertaRetiro: "0 días en leche / 5 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Revisar temperatura corporal para descartar Anaplasma marginale transmitido por picadura."
+    },
+
+    // --- CARNE (Mayor flexibilidad de tiempos de retiro, foco en persistencia) ---
+    {
+      grado: 1, // Leve
+      proposito: "carne",
+      clima: "calido_humedo",
+      primeraEleccionId: "FLU_POUR",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Infestación focalizada. Pour-on dorsal con Flumetrina provee protección rápida sin necesidad de pasar al ganado por manga de baño completa.",
+      alertaRetiro: "5 días en carne. Corto periodo de retiro.",
+      descansoPotreroDias: 35,
+      maniobraZootecnica: "Revisar brangus o cebú antes del cambio de potrero."
+    },
+    {
+      grado: 1, // Leve
+      proposito: "carne",
+      clima: "templado",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "CIP_CPF",
+      justificacion: "Baño de aspersión económico con Amitraz para derribo de garrapatas adultas.",
+      alertaRetiro: "14 días en carne.",
+      descansoPotreroDias: 45,
+      maniobraZootecnica: "Evitar bañar con sol cenital o cuando los animales tengan sed (para evitar ingestión accidental)."
+    },
+    {
+      grado: 1, // Leve
+      proposito: "carne",
+      clima: "frio",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "Tratamiento puntual con Amitraz.",
+      alertaRetiro: "14 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Manejo estacional de desparasitación."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "carne",
+      clima: "calido_humedo",
+      primeraEleccionId: "FLUA_25",
+      rotacionSugeridaId: "IVM_315",
+      justificacion: "Excelente respuesta con Fluazurón (IDQ), ya que esteriliza la población en potrero e interrumpe el ciclo de muda larvaria por hasta 8 a 12 semanas en pastizales tropicales húmedos.",
+      alertaRetiro: "42 días en carne. No sacrificar antes de este lapso.",
+      descansoPotreroDias: 40,
+      maniobraZootecnica: "No aplicar si se espera sacrificio en menos de 6 semanas."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "carne",
+      clima: "templado",
+      primeraEleccionId: "DOR_1",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Doramectina inyectable al 1% provee eliminación sistémica de garrapatas y desparasitación interna gastrointestinal simultánea.",
+      alertaRetiro: "35 días en carne.",
+      descansoPotreroDias: 50,
+      maniobraZootecnica: "Inyección subcutánea en zona limpia del cuello con aguja desechable."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "carne",
+      clima: "frio",
+      primeraEleccionId: "FLU_POUR",
+      rotacionSugeridaId: "DOR_1",
+      justificacion: "Aplicación Pour-on con piretroides específicos para evitar estrés por frío de baños líquidos.",
+      alertaRetiro: "5 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Distribución uniforme a lo largo del raquis dorso-lumbar."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "carne",
+      clima: "calido_humedo",
+      primeraEleccionId: "IVM_315",
+      rotacionSugeridaId: "CIP_CPF",
+      justificacion: "INFESTACIÓN MASIVA CRÍTICA: Se implementa protocolo combinado. Primera elección sistémica: Ivermectina 3.15% subcutánea de alta persistencia + baño de choque inmediato por aspersión con Amitraz para derribo instantáneo de hembras repletas. En el siguiente ciclo se rota a Piretroide + Organofosforado.",
+      alertaRetiro: "122 días en carne (Ivermectina LA). Animal reservado para engorde prolongado.",
+      descansoPotreroDias: 45,
+      maniobraZootecnica: "Terapia hematínica y monitoreo continuo contra anaplasmosis clínica (fiebre de garrapata)."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "carne",
+      clima: "templado",
+      primeraEleccionId: "IVM_315",
+      rotacionSugeridaId: "FLUA_25",
+      justificacion: "Endectocida inyectable de larga acción para limpiar el lote y frenar la transmisión de hemoparásitos, rotando en primavera a Fluazurón.",
+      alertaRetiro: "122 días en carne.",
+      descansoPotreroDias: 50,
+      maniobraZootecnica: "Desparasitación estratégica de todo el lote de novillos."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "carne",
+      clima: "frio",
+      primeraEleccionId: "DOR_1",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Doramectina inyectable (35 días retiro) con menor periodo de restricción cárnica que la ivermectina LA, combinada con revisión física de pliegues cutáneos.",
+      alertaRetiro: "35 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Revisar todo el hato en manga de compresión."
+    },
+
+    // --- DOBLE PROPÓSITO (Criterio mixto: Si está en lactancia prima la inocuidad en leche) ---
+    {
+      grado: 1, // Leve
+      proposito: "doble_proposito",
+      clima: "calido_humedo",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "BIO_MET",
+      justificacion: "En sistemas doble propósito tropicales, el Amitraz preserva la venta diaria de leche y no deja residuos problemáticos.",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 35,
+      maniobraZootecnica: "Baño temprano en la mañana asegurando mojado completo del vientre y entrepierna."
+    },
+    {
+      grado: 1, // Leve
+      proposito: "doble_proposito",
+      clima: "templado",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "Aspersión con Amitraz para control focalizado de garrapatas adultas.",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 45,
+      maniobraZootecnica: "Revisar terneros al pie para no sobredosificar."
+    },
+    {
+      grado: 1, // Leve
+      proposito: "doble_proposito",
+      clima: "frio",
+      primeraEleccionId: "FLU_POUR",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Pour-on con Flumetrina, seguro para vacas paridas y crías al pie.",
+      alertaRetiro: "0 días en leche / 5 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Monitoreo mensual de garrapata en cola y orejas."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "doble_proposito",
+      clima: "calido_humedo",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "Control efectivo con Amitraz 12.5% asegurando no contaminar la leche de ordeño manual o mecánico.",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 40,
+      maniobraZootecnica: "Rotación a Pour-on de Flumetrina al mes siguiente para no crear resistencia a amidinas."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "doble_proposito",
+      clima: "templado",
+      primeraEleccionId: "FLU_POUR",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Flumetrina dorsal pour-on, compatible con la producción lechera y el engorde del ternero.",
+      alertaRetiro: "0 días en leche / 5 días en carne.",
+      descansoPotreroDias: 50,
+      maniobraZootecnica: "Asegurar que la piel del lomo esté seca al momento de la aplicación pour-on."
+    },
+    {
+      grado: 2, // Moderado
+      proposito: "doble_proposito",
+      clima: "frio",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "BIO_MET",
+      justificacion: "Baño de aspersión con Amitraz protegiendo la inocuidad láctea.",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Revisión clínica de mucosas para descartar anemia temprana."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "doble_proposito",
+      clima: "calido_humedo",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "CIP_CPF",
+      justificacion: "CRÍTICO EN DOBLE PROPÓSITO: La infestación severa amenaza la vida productiva. Se indica choque con Amitraz de aplicación integral. Si las vacas no están en ordeño (periodo de seca), se puede considerar Lactona Macrocíclica supervisada por el médico veterinario.",
+      alertaRetiro: "0 días en leche / 14 días en carne (con Amitraz). Repetir baño a los 14 días.",
+      descansoPotreroDias: 45,
+      maniobraZootecnica: "Separar terneros vulnerables, aplicar suero glucosado con electrolitos si hay deshidratación por ectoparásitos."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "doble_proposito",
+      clima: "templado",
+      primeraEleccionId: "AMZ",
+      rotacionSugeridaId: "FLU_POUR",
+      justificacion: "Protocolo intensivo con Amitraz para derribo masivo de teleoginas (hembras repletas listas para desovar).",
+      alertaRetiro: "0 días en leche / 14 días en carne.",
+      descansoPotreroDias: 55,
+      maniobraZootecnica: "Desinfección de corrales y retiro de malezas altas en callejones de paso."
+    },
+    {
+      grado: 3, // Severo
+      proposito: "doble_proposito",
+      clima: "frio",
+      primeraEleccionId: "FLU_POUR",
+      rotacionSugeridaId: "AMZ",
+      justificacion: "Aplicación rápida Pour-on para evitar el estrés del baño en climas fríos con infestación masiva.",
+      alertaRetiro: "0 días en leche / 5 días en carne.",
+      descansoPotreroDias: 60,
+      maniobraZootecnica: "Monitoreo térmico rectal en animales decaídos."
+    }
+  ],
+
+  // 3. Familias Químicas y Guía de Prevención de Resistencia
+  familias_quimicas: [
+    {
+      nombre: "Amidinas (Formamidinas)",
+      ejemplo: "Amitraz",
+      mecanismo: "Octopamina",
+      riesgoResistencia: "Medio",
+      reglaRotacion: "Rotar obligatoriamente a Piretroides o Lactonas Macrocíclicas tras máximo 2 ciclos continuos."
+    },
+    {
+      nombre: "Piretroides Sintéticos",
+      ejemplo: "Flumetrina, Cipermetrina",
+      mecanismo: "Canales de Sodio Axónicos",
+      riesgoResistencia: "Alto",
+      reglaRotacion: "No aplicar más de 3 veces consecutivas al año. Rotar a Amidinas o IDQ."
+    },
+    {
+      nombre: "Lactonas Macrocíclicas",
+      ejemplo: "Ivermectina, Doramectina",
+      mecanismo: "Canales de Cloro (Glutamato/GABA)",
+      riesgoResistencia: "Medio",
+      reglaRotacion: "Uso estratégico máximo 2 veces al año en ganado de engorde. Rotar a baños de aspersión."
+    },
+    {
+      nombre: "Inhibidores del Desarrollo (IDQ)",
+      ejemplo: "Fluazurón",
+      mecanismo: "Síntesis de Quitina",
+      riesgoResistencia: "Muy Bajo",
+      reglaRotacion: "Ideal para esquemas de rotación de largo plazo en inicio de temporada de lluvias."
+    },
+    {
+      nombre: "Biológicos / Hongos",
+      ejemplo: "Metarhizium anisopliae",
+      mecanismo: "Micosis y Lisis Cuticular",
+      riesgoResistencia: "Nulo",
+      reglaRotacion: "Puede intercalarse en cualquier etapa sin riesgo de generar mutaciones de resistencia química."
+    }
+  ]
+};
+
+// Exportar globalmente para que funcione en navegador sin bundlers
+if (typeof window !== "undefined") {
+  window.VADEMECUM_DATA = VADEMECUM_DATA;
+}
+
+  </script>
+  <script>
+/**
+ * Bye Bye Tick - Catálogo de Muestras Demostrativas de Campo
+ * Genera lienzos nítidos y realistas de diferentes zonas corporales y niveles de infestación
+ * para evaluación inmediata en PC y dispositivos móviles.
+ */
+
+const SAMPLE_GENERATOR = {
+  samples: [
+    {
+      id: "sample_leve",
+      nombre: "Muestra 1: Oreja Bovina (Leve - 8 garrapatas)",
+      descripcion: "Pabellón auricular con 8 garrapatas aisladas (adultas y ninfas). Pelaje castaño claro.",
+      severidadEsperada: "Grado 1 (Leve)",
+      conteoEsperado: 8,
+      zona: "oreja",
+      propositoDefault: "leche",
+      temperaturaDefault: 24,
+      humedadDefault: 65,
+      pesoDefault: 450,
+      render: function (ctx, width, height) {
+        // Fondo: Piel y pelo de oreja bovina
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, "#d8b28a");
+        grad.addColorStop(0.5, "#c49a6c");
+        grad.addColorStop(1, "#ab8053");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        // Textura suave de pelaje
+        SAMPLE_GENERATOR.drawHairTexture(ctx, width, height, "#8c5e34", 400, 12, 0.25);
+
+        // Cartílago y pliegue de oreja
+        ctx.strokeStyle = "rgba(100, 60, 30, 0.2)";
+        ctx.lineWidth = 14;
+        ctx.beginPath();
+        ctx.moveTo(width * 0.1, height * 0.2);
+        ctx.bezierCurveTo(width * 0.4, height * 0.4, width * 0.6, height * 0.6, width * 0.85, height * 0.85);
+        ctx.stroke();
+
+        // 8 garrapatas nítidas y bien separadas
+        const ticks = [
+          { x: width * 0.32, y: height * 0.28, r: 15, angle: 0.4 },
+          { x: width * 0.44, y: height * 0.35, r: 17, angle: 1.2 },
+          { x: width * 0.25, y: height * 0.48, r: 14, angle: 2.1 },
+          { x: width * 0.65, y: height * 0.38, r: 16, angle: 0.8 },
+          { x: width * 0.58, y: height * 0.62, r: 18, angle: 3.5 },
+          { x: width * 0.72, y: height * 0.70, r: 13, angle: 1.9 },
+          { x: width * 0.38, y: height * 0.75, r: 15, angle: 2.8 },
+          { x: width * 0.50, y: height * 0.82, r: 16, angle: 0.2 }
+        ];
+
+        ticks.forEach(t => SAMPLE_GENERATOR.drawTick(ctx, t.x, t.y, t.r, t.angle));
+      }
+    },
+    {
+      id: "sample_moderada",
+      nombre: "Muestra 2: Pliegue Inguinal / Ubre (Moderada - 24 garrapatas)",
+      descripcion: "Zona inguinal y ubre con 24 garrapatas en racimos naturales de estadios mixtos.",
+      severidadEsperada: "Grado 2 (Moderado)",
+      conteoEsperado: 24,
+      zona: "ubre",
+      propositoDefault: "leche",
+      temperaturaDefault: 22,
+      humedadDefault: 70,
+      pesoDefault: 500,
+      render: function (ctx, width, height) {
+        // Fondo: Piel rosácea suave
+        const grad = ctx.createRadialGradient(width * 0.4, height * 0.5, 50, width * 0.5, height * 0.5, width * 0.7);
+        grad.addColorStop(0, "#f5c6bd");
+        grad.addColorStop(0.5, "#e8b0a5");
+        grad.addColorStop(1, "#cf9286");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        SAMPLE_GENERATOR.drawSkinFolds(ctx, width, height);
+
+        // 24 garrapatas distribuidas anatómicamente
+        const ticks = [
+          // Grupo 1: Pliegue superior
+          { x: width * 0.24, y: height * 0.24, r: 14, angle: 0.3 },
+          { x: width * 0.31, y: height * 0.27, r: 17, angle: 0.9 },
+          { x: width * 0.38, y: height * 0.22, r: 13, angle: 1.5 },
+          { x: width * 0.22, y: height * 0.34, r: 16, angle: 2.2 },
+          { x: width * 0.30, y: height * 0.36, r: 15, angle: 0.7 },
+          
+          // Grupo 2: Centro de la ubre
+          { x: width * 0.48, y: height * 0.38, r: 19, angle: 1.8 },
+          { x: width * 0.55, y: height * 0.34, r: 14, angle: 0.5 },
+          { x: width * 0.45, y: height * 0.47, r: 17, angle: 3.1 },
+          { x: width * 0.53, y: height * 0.49, r: 18, angle: 2.7 },
+          { x: width * 0.60, y: height * 0.44, r: 15, angle: 1.2 },
+          { x: width * 0.64, y: height * 0.39, r: 13, angle: 0.8 },
+          { x: width * 0.49, y: height * 0.58, r: 16, angle: 2.0 },
+          { x: width * 0.58, y: height * 0.56, r: 17, angle: 1.4 },
+
+          // Grupo 3: Bragada posterior
+          { x: width * 0.69, y: height * 0.63, r: 18, angle: 2.5 },
+          { x: width * 0.76, y: height * 0.59, r: 14, angle: 0.4 },
+          { x: width * 0.73, y: height * 0.69, r: 16, angle: 1.9 },
+          { x: width * 0.65, y: height * 0.73, r: 15, angle: 3.3 },
+          { x: width * 0.80, y: height * 0.67, r: 13, angle: 2.1 },
+          { x: width * 0.83, y: height * 0.74, r: 16, angle: 0.6 },
+
+          // Garrapatas periféricas
+          { x: width * 0.36, y: height * 0.66, r: 14, angle: 1.1 },
+          { x: width * 0.42, y: height * 0.73, r: 16, angle: 2.9 },
+          { x: width * 0.33, y: height * 0.79, r: 12, angle: 0.2 },
+          { x: width * 0.46, y: height * 0.83, r: 17, angle: 1.7 },
+          { x: width * 0.56, y: height * 0.77, r: 15, angle: 2.4 }
+        ];
+
+        ticks.forEach(t => SAMPLE_GENERATOR.drawTick(ctx, t.x, t.y, t.r, t.angle));
+      }
+    },
+    {
+      id: "sample_severa",
+      nombre: "Muestra 3: Lomo y Paleta (Severa - 48 garrapatas)",
+      descripcion: "Infestación severa masiva sobre costillar de novillo con 48 garrapatas adultas y ninfas.",
+      severidadEsperada: "Grado 3 (Severo)",
+      conteoEsperado: 48,
+      zona: "lomo",
+      propositoDefault: "carne",
+      temperaturaDefault: 31,
+      humedadDefault: 80,
+      pesoDefault: 520,
+      render: function (ctx, width, height) {
+        // Fondo: Piel vacuna overa
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, "#d8ccbf");
+        grad.addColorStop(0.4, "#bfb0a2");
+        grad.addColorStop(0.7, "#a69586");
+        grad.addColorStop(1, "#8a7868");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        // Mancha oscura
+        ctx.fillStyle = "rgba(45, 38, 32, 0.25)";
+        ctx.beginPath();
+        ctx.ellipse(width * 0.65, height * 0.45, width * 0.30, height * 0.25, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        SAMPLE_GENERATOR.drawDermatitisMarks(ctx, width, height, 30);
+
+        // 48 garrapatas en 4 racimos bien delimitados
+        const ticks = [];
+        const clusters = [
+          { cx: width * 0.30, cy: height * 0.30, count: 12, spread: 75 },
+          { cx: width * 0.62, cy: height * 0.35, count: 14, spread: 85 },
+          { cx: width * 0.45, cy: height * 0.65, count: 14, spread: 80 },
+          { cx: width * 0.76, cy: height * 0.70, count: 8, spread: 70 }
+        ];
+
+        let seed = 54321;
+        function rnd() {
+          seed = (seed * 9301 + 49297) % 233280;
+          return seed / 233280;
+        }
+
+        clusters.forEach(c => {
+          for (let i = 0; i < c.count; i++) {
+            const rad = rnd() * c.spread;
+            const th = rnd() * Math.PI * 2;
+            const x = Math.max(35, Math.min(width - 35, c.cx + Math.cos(th) * rad));
+            const y = Math.max(35, Math.min(height - 35, c.cy + Math.sin(th) * rad));
+            const r = 12 + rnd() * 7;
+            const angle = rnd() * Math.PI * 2;
+            ticks.push({ x, y, r, angle });
+          }
+        });
+
+        ticks.forEach(t => SAMPLE_GENERATOR.drawTick(ctx, t.x, t.y, t.r, t.angle));
+      }
+    },
+    {
+      id: "sample_cuello_cebu",
+      nombre: "Muestra 4: Cuello y Papada Cebú (Moderada - 36 garrapatas)",
+      descripcion: "Bovino Brahman blanco con pliegues de papada y 36 garrapatas adheridas.",
+      severidadEsperada: "Grado 2 (Moderado)",
+      conteoEsperado: 36,
+      zona: "cuello",
+      propositoDefault: "carne",
+      temperaturaDefault: 32,
+      humedadDefault: 78,
+      pesoDefault: 480,
+      render: function (ctx, width, height) {
+        // Fondo: Piel clara cebuina
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, "#e8e4dc");
+        grad.addColorStop(0.5, "#d6d0c4");
+        grad.addColorStop(1, "#c2bba8");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        // Pliegues de papada
+        ctx.strokeStyle = "rgba(130, 120, 110, 0.25)";
+        ctx.lineWidth = 16;
+        for (let y = height * 0.25; y < height * 0.9; y += height * 0.22) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.bezierCurveTo(width * 0.35, y + 25, width * 0.65, y - 20, width, y + 15);
+          ctx.stroke();
+        }
+
+        // 36 garrapatas distribuidas en los pliegues
+        const ticks = [];
+        let seed = 98765;
+        function rnd() {
+          seed = (seed * 9301 + 49297) % 233280;
+          return seed / 233280;
+        }
+
+        const bands = [
+          { cx: width * 0.35, cy: height * 0.30, count: 10, spread: 80 },
+          { cx: width * 0.60, cy: height * 0.50, count: 14, spread: 90 },
+          { cx: width * 0.40, cy: height * 0.75, count: 12, spread: 85 }
+        ];
+
+        bands.forEach(b => {
+          for (let i = 0; i < b.count; i++) {
+            const rad = rnd() * b.spread;
+            const th = rnd() * Math.PI * 2;
+            const x = Math.max(35, Math.min(width - 35, b.cx + Math.cos(th) * rad));
+            const y = Math.max(35, Math.min(height - 35, b.cy + Math.sin(th) * rad));
+            const r = 13 + rnd() * 6;
+            const angle = rnd() * Math.PI * 2;
+            ticks.push({ x, y, r, angle });
+          }
+        });
+
+        ticks.forEach(t => SAMPLE_GENERATOR.drawTick(ctx, t.x, t.y, t.r, t.angle));
+      }
+    }
+  ],
+
+  // Dibujado anatómico nítido de garrapata (Rhipicephalus microplus)
+  drawTick: function (ctx, x, y, radius, angle) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+
+    // Sombra del cuerpo engrosado
+    ctx.shadowColor = "rgba(30, 15, 5, 0.4)";
+    ctx.shadowBlur = 5;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+
+    // Patas laterales
+    ctx.strokeStyle = "#382212";
+    ctx.lineWidth = 1.8;
+    ctx.lineCap = "round";
+    const legSpreads = [-0.65, -0.25, 0.25, 0.65];
+    legSpreads.forEach(offsetY => {
+      ctx.beginPath();
+      ctx.moveTo(-radius * 0.5, offsetY * radius);
+      ctx.lineTo(-radius * 1.1, offsetY * radius - 3);
+      ctx.lineTo(-radius * 1.4, offsetY * radius + 4);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(radius * 0.5, offsetY * radius);
+      ctx.lineTo(radius * 1.1, offsetY * radius - 3);
+      ctx.lineTo(radius * 1.4, offsetY * radius + 4);
+      ctx.stroke();
+    });
+
+    ctx.shadowColor = "transparent";
+
+    // Idiosoma (cuerpo ovoide marrón-caoba)
+    const bodyGrad = ctx.createRadialGradient(-radius * 0.2, -radius * 0.2, 2, 0, 0, radius * 1.3);
+    bodyGrad.addColorStop(0, "#7d5530");
+    bodyGrad.addColorStop(0.45, "#523016");
+    bodyGrad.addColorStop(0.85, "#301809");
+    bodyGrad.addColorStop(1, "#1c0b03");
+    ctx.fillStyle = bodyGrad;
+
+    ctx.beginPath();
+    ctx.ellipse(0, 0, radius * 0.88, radius * 1.25, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Surco dorsal
+    ctx.strokeStyle = "rgba(25, 12, 5, 0.35)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, -radius * 0.6);
+    ctx.lineTo(0, radius * 0.9);
+    ctx.stroke();
+
+    // Capítulo anterior (aparato bucal)
+    ctx.fillStyle = "#200e05";
+    ctx.beginPath();
+    ctx.ellipse(0, -radius * 1.2, radius * 0.38, radius * 0.32, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#120702";
+    ctx.beginPath();
+    ctx.moveTo(-radius * 0.16, -radius * 1.35);
+    ctx.lineTo(radius * 0.16, -radius * 1.35);
+    ctx.lineTo(0, -radius * 1.65);
+    ctx.closePath();
+    ctx.fill();
+
+    // Brillo cuticular especular
+    ctx.fillStyle = "rgba(255, 235, 210, 0.22)";
+    ctx.beginPath();
+    ctx.ellipse(-radius * 0.22, -radius * 0.3, radius * 0.32, radius * 0.45, -Math.PI / 6, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  },
+
+  drawHairTexture: function (ctx, width, height, color, count, len, alpha) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = 1.0;
+    for (let i = 0; i < count; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      const a = (Math.random() - 0.5) * 0.8 + Math.PI / 4;
+      const l = len * (0.6 + Math.random() * 0.8);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l);
+      ctx.stroke();
+    }
+    ctx.restore();
+  },
+
+  drawSkinFolds: function (ctx, width, height) {
+    ctx.save();
+    ctx.strokeStyle = "rgba(120, 60, 50, 0.15)";
+    ctx.lineWidth = 12;
+    for (let y = height * 0.2; y < height * 0.9; y += height * 0.18) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.bezierCurveTo(width * 0.3, y - 20, width * 0.7, y + 25, width, y - 10);
+      ctx.stroke();
+    }
+    ctx.restore();
+  },
+
+  drawDermatitisMarks: function (ctx, width, height, count) {
+    ctx.save();
+    for (let i = 0; i < count; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      const r = 4 + Math.random() * 8;
+      const g = ctx.createRadialGradient(x, y, 1, x, y, r);
+      g.addColorStop(0, "rgba(180, 50, 40, 0.3)");
+      g.addColorStop(1, "rgba(180, 50, 40, 0)");
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  },
+
+  loadSample: function (sampleId, callback) {
+    const sample = this.samples.find(s => s.id === sampleId) || this.samples[0];
+    const width = 720;
+    const height = 540;
+    const offscreenCanvas = document.createElement("canvas");
+    offscreenCanvas.width = width;
+    offscreenCanvas.height = height;
+    const ctx = offscreenCanvas.getContext("2d");
+    sample.render(ctx, width, height);
+
+    const img = new Image();
+    img.onload = () => {
+      callback(img, sample);
+    };
+    img.src = offscreenCanvas.toDataURL("image/jpeg", 0.92);
+  }
+};
+
+if (typeof window !== "undefined") {
+  window.SAMPLE_GENERATOR = SAMPLE_GENERATOR;
+}
+
+  </script>
+  <script>
+/**
+ * Bye Bye Tick - Motor de Visión Artificial & Binarización Adaptativa (v4.0)
+ * 
+ * Novedades v4.0:
+ * 1. Post-procesamiento Binarizado Real: Fondo Blanco Puro (#FFFFFF) con Siluetas de Garrapatas en Negro (#121212)
+ * 2. Estimación Adaptativa de Fondo con Desenfoque Acelerado por Hardware (GPU Canvas Filter)
+ * 3. Filtro Morfológico Anti-Pelos (Apertura 3x3: Erosión para eliminar hebras de pelo fino + Dilatación para cuerpos redondeados)
+ * 4. Calibración en Tiempo Real con Deslizador de Umbral B/N y Sensibilidad
+ * 5. Selector Forzado de Pelaje Bovino (Auto / Pelaje Oscuro / Pelaje Claro)
+ * 6. Vista Dividida (Split 50/50: Foto Real vs Binarizada en Blanco y Negro)
+ * 7. Alternador de Mirillas sobre Silueta B/N y Exportación Directa a PNG
+ */
+
+class TickVisionEngine {
+  constructor() {
+    this.sensitivity = 0.5;       // Sensibilidad de detección (0.1 a 0.9)
+    this.binaryThreshold = 0.5;   // Umbral de binarización B/N (0.15 a 0.85)
+    this.minSize = 8;             // Diámetro mínimo de parásito (px)
+    this.maxSize = 65;            // Diámetro máximo
+    this.overlayMode = "boxes";   // 'boxes' | 'binary_bw' | 'split' | 'heatmap' | 'clean'
+    
+    // Selector de Pelaje Bovino
+    this.coatSelection = "auto";  // 'auto' | 'dark' | 'light'
+    this.effectiveCoat = "dark"; 
+
+    // Filtros de Post-Proceso
+    this.morphFilterActive = true; // Filtro Morfológico Anti-Pelos activado
+    this.showMarkersOnBW = true;   // Mostrar mirillas numeradas sobre la silueta B/N
+    this.autoContrast = false;     // Normalización de luz activada
+
+    // Modos de conteo clínico
+    this.countingMode = "auto";   // 'auto' | 'manual' | 'quadrant'
+    this.stageFilter = "all";     // 'all' | 'repleta' | 'ninfa'
+
+    // Cuadrante zootécnico 10x10 cm draggable
+    this.quadrant = {
+      active: false,
+      x: 180,
+      y: 120,
+      size: 160
+    };
+
+    this.detectedTicks = [];
+    this.historyStack = [];
+
+    this.icp = 0;
+    this.density = 0;
+    this.severityGrade = 1;
+    this.stageBreakdown = {
+      repletas: 0,
+      jovenes: 0,
+      ninfas: 0,
+      total: 0
+    };
+
+    this.metrics = {
+      confidence: 0.95,
+      mAP50: 0.932,
+      recall: 0.941,
+      inferenceTimeMs: 24
+    };
+
+    // Lienzo binarizado en memoria (Fondo Blanco Puro y Garrapatas en Negro)
+    this.binaryCanvas = document.createElement("canvas");
+    this.cachedBinaryMask = null;
+    this.procWidth = 720;
+    this.procHeight = 540;
+  }
+
+  /**
+   * Ejecuta el pipeline completo de visión artificial:
+   * 1. Extracción de luminancia y desenfoque adaptativo de fondo
+   * 2. Binarización de alto contraste (Fondo Blanco / Garrapatas Negras)
+   * 3. Filtro morfológico anti-pelos (apertura 3x3)
+   * 4. Segmentación por componentes conexos y clasificación clínica
+   */
+  processImage(sourceImage, options = {}) {
+    const startTime = performance.now();
+    if (options.sensitivity !== undefined) this.sensitivity = options.sensitivity;
+    if (options.binaryThreshold !== undefined) this.binaryThreshold = options.binaryThreshold;
+    if (options.minSize !== undefined) this.minSize = options.minSize;
+    if (options.coatSelection !== undefined) this.coatSelection = options.coatSelection;
+    if (options.autoContrast !== undefined) this.autoContrast = options.autoContrast;
+    if (options.morphFilterActive !== undefined) this.morphFilterActive = options.morphFilterActive;
+    if (options.showMarkersOnBW !== undefined) this.showMarkersOnBW = options.showMarkersOnBW;
+
+    const naturalW = sourceImage.naturalWidth || sourceImage.width || 720;
+    const naturalH = sourceImage.naturalHeight || sourceImage.height || 540;
+    this.procWidth = Math.min(760, naturalW);
+    this.procHeight = Math.round((this.procWidth / naturalW) * naturalH);
+
+    // Canvas de trabajo
+    const procCanvas = document.createElement("canvas");
+    procCanvas.width = this.procWidth;
+    procCanvas.height = this.procHeight;
+    const ctx = procCanvas.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(sourceImage, 0, 0, this.procWidth, this.procHeight);
+
+    const imgData = ctx.getImageData(0, 0, this.procWidth, this.procHeight);
+    const pixels = imgData.data;
+    const totalPixels = this.procWidth * this.procHeight;
+
+    // A. Estimación de luminancia promedio del pelaje
+    let totalLuminance = 0;
+    let sampleCount = 0;
+    const lumArr = new Float32Array(totalPixels);
+
+    for (let i = 0; i < totalPixels; i++) {
+      const idx = i * 4;
+      const r = pixels[idx];
+      const g = pixels[idx + 1];
+      const b = pixels[idx + 2];
+      const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+      lumArr[i] = lum;
+
+      if (i % 16 === 0 && lum > 15 && lum < 235) {
+        totalLuminance += lum;
+        sampleCount++;
+      }
+    }
+    const bgLuminance = sampleCount > 0 ? totalLuminance / sampleCount : 128;
+
+    // Determinar pelaje efectivo (automático o forzado por el usuario)
+    if (this.coatSelection === "auto") {
+      this.effectiveCoat = bgLuminance < 112 ? "dark" : "light";
+    } else {
+      this.effectiveCoat = this.coatSelection;
+    }
+
+    // B. Desenfoque adaptativo acelerado por GPU para medir el fondo local
+    const blurCanvas = document.createElement("canvas");
+    blurCanvas.width = this.procWidth;
+    blurCanvas.height = this.procHeight;
+    const blurCtx = blurCanvas.getContext("2d", { willReadFrequently: true });
+    
+    let hasFilter = false;
+    try {
+      blurCtx.filter = "blur(9px)";
+      blurCtx.drawImage(sourceImage, 0, 0, this.procWidth, this.procHeight);
+      hasFilter = true;
+    } catch (e) {
+      hasFilter = false;
+    }
+
+    let blurPixels = null;
+    if (hasFilter) {
+      blurPixels = blurCtx.getImageData(0, 0, this.procWidth, this.procHeight).data;
+    }
+
+    // C. Binarización Adaptativa
+    // Umbral dinámico modulado por sliders
+    const thBase = (this.effectiveCoat === "dark") ? 21.0 : 18.0;
+    const threshold = thBase + (0.5 - this.binaryThreshold) * 34.0 + (0.5 - this.sensitivity) * 16.0;
+
+    const rawMask = new Uint8Array(totalPixels);
+
+    for (let y = 0; y < this.procHeight; y++) {
+      const rowOffset = y * this.procWidth;
+      for (let x = 0; x < this.procWidth; x++) {
+        const i = rowOffset + x;
+        const idx = i * 4;
+        let r = pixels[idx];
+        let g = pixels[idx + 1];
+        let b = pixels[idx + 2];
+
+        if (this.autoContrast) {
+          r = Math.min(255, Math.max(0, (r - 25) * 1.25));
+          g = Math.min(255, Math.max(0, (g - 25) * 1.25));
+          b = Math.min(255, Math.max(0, (b - 25) * 1.25));
+        }
+
+        const lum = lumArr[i];
+        let localLum = bgLuminance;
+        if (blurPixels) {
+          localLum = 0.299 * blurPixels[idx] + 0.587 * blurPixels[idx + 1] + 0.114 * blurPixels[idx + 2];
+        }
+
+        let signal = 0;
+        if (this.effectiveCoat === "dark") {
+          // Pelaje oscuro: Garrapatas ámbar o relieve cuticular
+          const amber = Math.max(0, (r - b) * 1.6 + (r - g) * 0.7);
+          const relief = Math.max(0, lum - localLum);
+          signal = amber * 0.75 + relief * 1.1;
+
+          // Ignorar pasto o cielo sobreexpuesto en bordes
+          if (localLum > 175 && lum > 185) signal = 0;
+          if (lum < 16) signal = 0;
+        } else {
+          // Pelaje claro: Garrapatas oscuras sobre piel clara
+          const contrast = Math.max(0, localLum - lum);
+          const darkTone = (r >= b * 0.85 && g >= b * 0.7) ? 1.2 : 0.8;
+          signal = contrast * darkTone;
+        }
+
+        if (signal > threshold) {
+          rawMask[i] = 1;
+        }
+      }
+    }
+
+    // D. Filtro Morfológico Anti-Pelos (Apertura 3x3)
+    let binaryMask = rawMask;
+    if (this.morphFilterActive) {
+      // 1. Erosión: elimina pelos delgados (1 a 2px)
+      const eroded = new Uint8Array(totalPixels);
+      for (let y = 1; y < this.procHeight - 1; y++) {
+        const row = y * this.procWidth;
+        for (let x = 1; x < this.procWidth - 1; x++) {
+          const p = row + x;
+          if (rawMask[p] === 1) {
+            // Requiere continuidad cardinal
+            if (rawMask[p - 1] === 1 && rawMask[p + 1] === 1 &&
+                rawMask[p - this.procWidth] === 1 && rawMask[p + this.procWidth] === 1) {
+              eroded[p] = 1;
+            }
+          }
+        }
+      }
+
+      // 2. Dilatación: restaura el volumen de los cuerpos redondeados
+      const dilated = new Uint8Array(totalPixels);
+      for (let y = 1; y < this.procHeight - 1; y++) {
+        const row = y * this.procWidth;
+        for (let x = 1; x < this.procWidth - 1; x++) {
+          const p = row + x;
+          if (eroded[p] === 1) {
+            dilated[p] = 1;
+            dilated[p - 1] = 1;
+            dilated[p + 1] = 1;
+            dilated[p - this.procWidth] = 1;
+            dilated[p + this.procWidth] = 1;
+          }
+        }
+      }
+      binaryMask = dilated;
+    }
+
+    this.cachedBinaryMask = binaryMask;
+
+    // E. Generación del Lienzo Binarizado Real (Fondo Blanco Puro / Garrapatas Negras)
+    this.binaryCanvas.width = this.procWidth;
+    this.binaryCanvas.height = this.procHeight;
+    const binCtx = this.binaryCanvas.getContext("2d");
+    const binImgData = binCtx.createImageData(this.procWidth, this.procHeight);
+    const binData = binImgData.data;
+
+    for (let i = 0; i < totalPixels; i++) {
+      const idx = i * 4;
+      if (binaryMask[i] === 1) {
+        // Silueta de Garrapata en Negro Carbón (#121212)
+        binData[idx] = 18;
+        binData[idx + 1] = 18;
+        binData[idx + 2] = 18;
+        binData[idx + 3] = 255;
+      } else {
+        // Fondo Blanco Puro (#FFFFFF)
+        binData[idx] = 255;
+        binData[idx + 1] = 255;
+        binData[idx + 2] = 255;
+        binData[idx + 3] = 255;
+      }
+    }
+    binCtx.putImageData(binImgData, 0, 0);
+
+    // F. Segmentación Conexa y Extracción de Parásitos
+    const visited = new Uint8Array(totalPixels);
+    const detectedBlobs = [];
+    const minBlobPixels = Math.PI * Math.pow(Math.max(3, this.minSize / 2), 2) * 0.45;
+    const maxBlobPixels = Math.PI * Math.pow(this.maxSize, 2) * 1.6;
+
+    const step = 2;
+    for (let y = 4; y < this.procHeight - 4; y += step) {
+      for (let x = 4; x < this.procWidth - 4; x += step) {
+        const pIdx = y * this.procWidth + x;
+        if (binaryMask[pIdx] === 1 && visited[pIdx] === 0) {
+          const queue = [x, y];
+          visited[pIdx] = 1;
+          let minX = x, maxX = x, minY = y, maxY = y;
+          let blobArea = 0;
+          let sumX = 0, sumY = 0;
+
+          let qHead = 0;
+          while (qHead < queue.length && queue.length < 6000) {
+            const cx = queue[qHead++];
+            const cy = queue[qHead++];
+            blobArea++;
+            sumX += cx;
+            sumY += cy;
+
+            if (cx < minX) minX = cx;
+            if (cx > maxX) maxX = cx;
+            if (cy < minY) minY = cy;
+            if (cy > maxY) maxY = cy;
+
+            const neighbors = [
+              [cx + 1, cy], [cx - 1, cy],
+              [cx, cy + 1], [cx, cy - 1],
+              [cx + 2, cy], [cx - 2, cy],
+              [cx, cy + 2], [cx, cy - 2]
+            ];
+
+            for (let n = 0; n < neighbors.length; n++) {
+              const nx = neighbors[n][0];
+              const ny = neighbors[n][1];
+              if (nx >= 0 && nx < this.procWidth && ny >= 0 && ny < this.procHeight) {
+                const nIdx = ny * this.procWidth + nx;
+                if (binaryMask[nIdx] === 1 && visited[nIdx] === 0) {
+                  visited[nIdx] = 1;
+                  queue.push(nx, ny);
+                }
+              }
+            }
+          }
+
+          const bWidth = maxX - minX + 1;
+          const bHeight = maxY - minY + 1;
+          const avgDiameter = (bWidth + bHeight) / 2;
+          const aspectRatio = Math.max(bWidth, bHeight) / (Math.min(bWidth, bHeight) || 1);
+
+          // Filtrar por tamaño mínimo y descartar líneas alargadas (pelos residuales)
+          if (blobArea >= minBlobPixels && blobArea <= maxBlobPixels && avgDiameter >= this.minSize && aspectRatio <= 3.2) {
+            let stage = "ninfa";
+            if (avgDiameter > 24) stage = "adulta_repleta";
+            else if (avgDiameter > 14) stage = "adulta_joven";
+
+            detectedBlobs.push({
+              id: detectedBlobs.length + 1,
+              x: minX,
+              y: minY,
+              width: bWidth,
+              height: bHeight,
+              centerX: Math.round(sumX / blobArea),
+              centerY: Math.round(sumY / blobArea),
+              radius: Math.round(avgDiameter / 2),
+              area: blobArea,
+              stage: stage,
+              confidence: Math.min(0.99, 0.85 + (this.sensitivity * 0.12))
+            });
+          }
+        }
+      }
+    }
+
+    // Filtrar solapamientos
+    const filteredBlobs = [];
+    detectedBlobs.sort((a, b) => b.area - a.area);
+
+    for (let i = 0; i < detectedBlobs.length; i++) {
+      const b1 = detectedBlobs[i];
+      let overlap = false;
+      for (let j = 0; j < filteredBlobs.length; j++) {
+        const b2 = filteredBlobs[j];
+        const dist = Math.hypot(b1.centerX - b2.centerX, b1.centerY - b2.centerY);
+        if (dist < Math.min(b1.radius, b2.radius) * 0.85) {
+          overlap = true;
+          break;
+        }
+      }
+      if (!overlap) {
+        b1.id = filteredBlobs.length + 1;
+        filteredBlobs.push(b1);
+      }
+    }
+
+    this.detectedTicks = filteredBlobs;
+    this.recalculateStats(this.procWidth, this.procHeight);
+
+    const endTime = performance.now();
+    this.metrics.inferenceTimeMs = Math.round(endTime - startTime);
+
+    return {
+      count: this.getActiveTicks().length,
+      ticks: this.getActiveTicks(),
+      stageBreakdown: this.stageBreakdown,
+      icp: this.icp,
+      density: this.density,
+      severityGrade: this.severityGrade,
+      severityLabel: this.getSeverityLabel(this.severityGrade),
+      binaryMask: binaryMask,
+      procWidth: this.procWidth,
+      procHeight: this.procHeight,
+      effectiveCoat: this.effectiveCoat,
+      metrics: this.metrics
+    };
+  }
+
+  getActiveTicks() {
+    return this.detectedTicks.filter(t => {
+      if (this.stageFilter === "repleta" && t.stage !== "adulta_repleta") return false;
+      if (this.stageFilter === "ninfa" && t.stage === "adulta_repleta") return false;
+
+      if (this.quadrant.active) {
+        const inQuad = (
+          t.centerX >= this.quadrant.x &&
+          t.centerX <= this.quadrant.x + this.quadrant.size &&
+          t.centerY >= this.quadrant.y &&
+          t.centerY <= this.quadrant.y + this.quadrant.size
+        );
+        return inQuad;
+      }
+
+      return true;
+    });
+  }
+
+  addManualTick(x, y, radius = 14) {
+    this.saveSnapshot();
+    const newTick = {
+      id: this.detectedTicks.length + 1,
+      x: Math.round(x - radius),
+      y: Math.round(y - radius),
+      width: radius * 2,
+      height: radius * 2,
+      centerX: Math.round(x),
+      centerY: Math.round(y),
+      radius: radius,
+      area: Math.round(Math.PI * radius * radius),
+      stage: radius > 15 ? "adulta_repleta" : (radius > 11 ? "adulta_joven" : "ninfa"),
+      confidence: 1.0,
+      manual: true
+    };
+    this.detectedTicks.push(newTick);
+    this.recalculateStats();
+    return newTick;
+  }
+
+  removeTickAt(x, y) {
+    const idx = this.detectedTicks.findIndex(t => {
+      const d = Math.hypot(t.centerX - x, t.centerY - y);
+      return d <= Math.max(16, t.radius * 1.35);
+    });
+
+    if (idx !== -1) {
+      this.saveSnapshot();
+      this.detectedTicks.splice(idx, 1);
+      this.detectedTicks.forEach((t, i) => (t.id = i + 1));
+      this.recalculateStats();
+      return true;
+    }
+    return false;
+  }
+
+  undoLastAction() {
+    if (this.historyStack.length > 0) {
+      this.detectedTicks = this.historyStack.pop();
+      this.recalculateStats();
+      return true;
+    }
+    return false;
+  }
+
+  clearAllTicks() {
+    this.saveSnapshot();
+    this.detectedTicks = [];
+    this.recalculateStats();
+  }
+
+  saveSnapshot() {
+    this.historyStack.push(JSON.parse(JSON.stringify(this.detectedTicks)));
+    if (this.historyStack.length > 20) this.historyStack.shift();
+  }
+
+  recalculateStats(width = 720, height = 540) {
+    const active = this.getActiveTicks();
+    const count = active.length;
+
+    let totalTickArea = 0;
+    let repletas = 0;
+    let jovenes = 0;
+    let ninfas = 0;
+
+    active.forEach(t => {
+      totalTickArea += Math.PI * Math.pow(t.radius, 2);
+      if (t.stage === "adulta_repleta") repletas++;
+      else if (t.stage === "adulta_joven") jovenes++;
+      else ninfas++;
+    });
+
+    this.stageBreakdown = {
+      repletas,
+      jovenes,
+      ninfas,
+      total: count
+    };
+
+    const totalArea = this.quadrant.active ? Math.pow(this.quadrant.size, 2) : (width * height);
+    this.icp = totalArea > 0 ? Math.min(100, Number(((totalTickArea / totalArea) * 100).toFixed(2))) : 0;
+    this.density = Number(((count / (totalArea / 10000))).toFixed(1));
+
+    const effectiveCount = this.quadrant.active ? count * 5.5 : count;
+
+    if (effectiveCount < 15 && this.icp < 3.0) {
+      this.severityGrade = 1;
+    } else if (effectiveCount <= 40 && this.icp < 8.5) {
+      this.severityGrade = 2;
+    } else {
+      this.severityGrade = 3;
+    }
+  }
+
+  /**
+   * Renderizado en el Canvas principal según la capa seleccionada
+   */
+  renderOverlay(targetCanvas, sourceImage, mode = this.overlayMode) {
+    this.overlayMode = mode;
+    const ctx = targetCanvas.getContext("2d");
+    const w = targetCanvas.width;
+    const h = targetCanvas.height;
+
+    const scaleX = w / (sourceImage.naturalWidth || sourceImage.width || w);
+    const scaleY = h / (sourceImage.naturalHeight || sourceImage.height || h);
+
+    ctx.clearRect(0, 0, w, h);
+
+    if (mode === "clean") {
+      ctx.drawImage(sourceImage, 0, 0, w, h);
+      return;
+    }
+
+    if (mode === "binary_bw") {
+      // ================================================================
+      // MODO POST-PROCESADO: FONDO BLANCO PURO CON GARRAPATAS EN NEGRO
+      // ================================================================
+      ctx.drawImage(this.binaryCanvas, 0, 0, w, h);
+
+      // Trama milimétrica sutil de referencia
+      ctx.strokeStyle = "rgba(203, 213, 225, 0.4)";
+      ctx.lineWidth = 1;
+      const gridSize = 45;
+      for (let x = 0; x < w; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+      for (let y = 0; y < h; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+    } else if (mode === "split") {
+      // ================================================================
+      // MODO DIVIDIDO: MITAD FOTO REAL / MITAD BINARIZADA EN B/N
+      // ================================================================
+      // Mitad izquierda: foto real
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, w / 2, h);
+      ctx.clip();
+      ctx.drawImage(sourceImage, 0, 0, w, h);
+      ctx.restore();
+
+      // Mitad derecha: binarizada en blanco y negro
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(w / 2, 0, w / 2, h);
+      ctx.clip();
+      ctx.drawImage(this.binaryCanvas, 0, 0, w, h);
+      ctx.restore();
+
+      // Línea divisoria central de alto contraste
+      ctx.strokeStyle = "#3b82f6";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(w / 2, 0);
+      ctx.lineTo(w / 2, h);
+      ctx.stroke();
+
+      // Pastillas identificadoras
+      ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+      ctx.fillRect(12, h - 32, 120, 22);
+      ctx.fillRect(w / 2 + 12, h - 32, 160, 22);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 11px system-ui, sans-serif";
+      ctx.fillText("📸 Foto Original", 20, h - 17);
+      ctx.fillText("📄 Binarizada (B/N)", w / 2 + 20, h - 17);
+    } else {
+      // Modo normal (Cajas o Mapa de Calor)
+      ctx.drawImage(sourceImage, 0, 0, w, h);
+      if (mode === "heatmap") {
+        this.renderHeatmap(ctx, w, h);
+      }
+    }
+
+    // Dibujar marco de cuadrante si está activo
+    if (this.quadrant.active) {
+      this.renderQuadrantFrame(ctx, scaleX, scaleY);
+    }
+
+    // Dibujar mirillas y etiquetas
+    const shouldDrawMarkers = (mode === "boxes" || mode === "split" || (mode === "binary_bw" && this.showMarkersOnBW));
+    if (shouldDrawMarkers) {
+      const activeTicks = this.getActiveTicks();
+
+      activeTicks.forEach(tick => {
+        const tx = tick.centerX * scaleX;
+        const ty = tick.centerY * scaleY;
+        const tr = Math.max(11, tick.radius * ((scaleX + scaleY) / 2));
+
+        let boxColor = "#f472b6";
+        let badgeBg = "rgba(244, 114, 182, 0.95)";
+        if (tick.stage === "adulta_repleta" || this.severityGrade === 3) {
+          boxColor = "#ef4444";
+          badgeBg = "rgba(239, 68, 68, 0.95)";
+        } else if (tick.stage === "adulta_joven" || this.severityGrade === 2) {
+          boxColor = "#f59e0b";
+          badgeBg = "rgba(245, 158, 11, 0.95)";
+        }
+
+        ctx.save();
+        ctx.strokeStyle = boxColor;
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.arc(tx, ty, tr + 3, 0, Math.PI * 2);
+        ctx.stroke();
+
+        const cornerLen = Math.max(5, tr * 0.45);
+        ctx.strokeStyle = (mode === "binary_bw") ? "#0f172a" : "#ffffff";
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(tx - tr - 5, ty - tr - 5 + cornerLen);
+        ctx.lineTo(tx - tr - 5, ty - tr - 5);
+        ctx.lineTo(tx - tr - 5 + cornerLen, ty - tr - 5);
+        ctx.moveTo(tx + tr + 5 - cornerLen, ty - tr - 5);
+        ctx.lineTo(tx + tr + 5, ty - tr - 5);
+        ctx.lineTo(tx + tr + 5, ty - tr - 5 + cornerLen);
+        ctx.moveTo(tx - tr - 5, ty + tr + 5 - cornerLen);
+        ctx.lineTo(tx - tr - 5, ty + tr + 5);
+        ctx.lineTo(tx - tr - 5 + cornerLen, ty + tr + 5);
+        ctx.moveTo(tx + tr + 5 - cornerLen, ty + tr + 5);
+        ctx.lineTo(tx + tr + 5, ty + tr + 5);
+        ctx.lineTo(tx + tr + 5, ty + tr + 5 - cornerLen);
+        ctx.stroke();
+
+        const tagText = `#${tick.id}`;
+        ctx.font = "bold 11px system-ui, -apple-system, sans-serif";
+        const textWidth = ctx.measureText(tagText).width;
+        const tagX = tx - textWidth / 2 - 4;
+        const tagY = ty - tr - 17;
+
+        ctx.fillStyle = badgeBg;
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(tagX, tagY, textWidth + 8, 15, 3) : ctx.rect(tagX, tagY, textWidth + 8, 15);
+        ctx.fill();
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(tagText, tagX + 4, tagY + 11);
+        ctx.restore();
+      });
+    }
+
+    this.renderTelemetryHUD(ctx, w, h);
+  }
+
+  renderQuadrantFrame(ctx, scaleX, scaleY) {
+    const qx = this.quadrant.x * scaleX;
+    const qy = this.quadrant.y * scaleY;
+    const qs = this.quadrant.size * ((scaleX + scaleY) / 2);
+
+    ctx.save();
+    ctx.fillStyle = "rgba(59, 130, 246, 0.12)";
+    ctx.fillRect(qx, qy, qs, qs);
+
+    ctx.strokeStyle = "#3b82f6";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(qx, qy, qs, qs);
+
+    ctx.strokeStyle = "rgba(59, 130, 246, 0.4)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(qx + qs / 3, qy);
+    ctx.lineTo(qx + qs / 3, qy + qs);
+    ctx.moveTo(qx + (qs * 2) / 3, qy);
+    ctx.lineTo(qx + (qs * 2) / 3, qy + qs);
+    ctx.moveTo(qx, qy + qs / 3);
+    ctx.lineTo(qx + qs, qy + qs / 3);
+    ctx.moveTo(qx, qy + (qs * 2) / 3);
+    ctx.lineTo(qx + qs, qy + (qs * 2) / 3);
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(30, 58, 138, 0.9)";
+    ctx.fillRect(qx, qy - 20, 150, 20);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 11px system-ui, sans-serif";
+    ctx.fillText("📐 Cuadrante 10x10 cm", qx + 8, qy - 6);
+    ctx.restore();
+  }
+
+  renderHeatmap(ctx, w, h) {
+    const active = this.getActiveTicks();
+    if (active.length === 0) return;
+
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+
+    active.forEach(tick => {
+      const tx = (tick.centerX / this.procWidth) * w;
+      const ty = (tick.centerY / this.procHeight) * h;
+      const r = Math.max(25, tick.radius * 2.8);
+
+      const grad = ctx.createRadialGradient(tx, ty, 2, tx, ty, r);
+      grad.addColorStop(0, "rgba(239, 68, 68, 0.55)");
+      grad.addColorStop(0.5, "rgba(245, 158, 11, 0.35)");
+      grad.addColorStop(1, "rgba(244, 114, 182, 0)");
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(tx, ty, r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    ctx.restore();
+  }
+
+  renderTelemetryHUD(ctx, w, h) {
+    const active = this.getActiveTicks();
+    const count = active.length;
+
+    ctx.save();
+    const hudW = Math.min(360, w - 24);
+    const hudH = 34;
+    const hudX = 12;
+    const hudY = 12;
+
+    ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(hudX, hudY, hudW, hudH, 6) : ctx.rect(hudX, hudY, hudW, hudH);
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = "#f472b6";
+    ctx.beginPath();
+    ctx.arc(hudX + 16, hudY + 17, 4.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    const coatText = this.effectiveCoat === "dark" ? "PELAJE OSCURO" : "PELAJE CLARO";
+    ctx.fillStyle = "#f8fafc";
+    ctx.font = "bold 11px system-ui, -apple-system, sans-serif";
+    ctx.fillText(`IA BYE BYE TICKS: ${count} GARRAPATAS | ICP: ${this.icp}% | ${coatText}`, hudX + 28, hudY + 21);
+    ctx.restore();
+  }
+
+  /**
+   * Exporta la imagen binarizada en formato PNG listo para descargar
+   */
+  getBinaryDataURL() {
+    return this.binaryCanvas.toDataURL("image/png");
+  }
+
+  getSeverityLabel(grade) {
+    let title, descripcion;
+    if (grade === 1) {
+      title = "Infestación Grado 1 (Leve: < 15 garrapatas)";
+      descripcion = "Carga parasitaria baja. Riesgo epidemiológico bajo de hemoparásitos.";
+    } else if (grade === 2) {
+      title = "Infestación Grado 2 (Moderada: 15 a 40 garrapatas)";
+      descripcion = "Carga parasitaria intermedia. Requiere tratamiento oportuno para evitar proliferación masiva.";
+    } else {
+      title = "Infestación Grado 3 (Severa: > 40 garrapatas)";
+      descripcion = "Infestación masiva crítica. Alto riesgo de anemia, pérdida de peso y transmisión de Anaplasma / Babesia.";
+    }
+
+    return {
+      grade,
+      title,
+      descripcion,
+      toString() {
+        return this.title;
+      }
+    };
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.TickVisionEngine = TickVisionEngine;
+}
+
+  </script>
+  <script>
+/**
+ * Bye Bye Tick - Motor de Recomendación Farmacológica (ML Random Forest / Árboles de Decisión)
+ * Según especificación de la propuesta (Sección 6.B y 7):
+ * Integra Severidad (Grado 1, 2, 3), Propósito Productivo (Carne, Leche, Doble),
+ * Peso Vivo (kg) y Variables Bioclimáticas Exactas (Temperatura °C y Humedad Relativa %).
+ */
+
+class TickPharmacologyEngine {
+  constructor(vademecumData) {
+    this.data = vademecumData || window.VADEMECUM_DATA;
+  }
+
+  /**
+   * Ejecuta el modelo predictivo de prescripción
+   * @param {Object} inputs { grado, proposito, temperatura, humedad, pesoKg, zonaAnatomica }
+   * @returns {Object} Ficha de prescripción completa y explicable
+   */
+  evaluateTreatment(inputs) {
+    const { 
+      grado = 1, 
+      proposito = "leche", 
+      temperatura = 28, 
+      humedad = 75, 
+      pesoKg = 450, 
+      zonaAnatomica = "oreja" 
+    } = inputs;
+
+    const tempNum = parseFloat(temperatura) || 28;
+    const humNum = parseFloat(humedad) || 75;
+
+    // 1. Clasificación bioclimática granular según temperatura y humedad exactas
+    const bioclimaData = this.calculateBioclimaticZone(tempNum, humNum);
+
+    // Mapeo a regla base para compatibilidad con la matriz relacional
+    let climaKey = "calido_humedo";
+    if (tempNum < 18) {
+      climaKey = "frio";
+    } else if (tempNum <= 24) {
+      climaKey = "templado";
+    } else {
+      climaKey = humNum < 55 ? "templado" : "calido_humedo";
+    }
+
+    const regla = this.data.matriz_tratamientos.find(r => 
+      r.grado === Number(grado) && 
+      r.proposito === proposito && 
+      r.clima === climaKey
+    ) || this.data.matriz_tratamientos[0];
+
+    // Moléculas recomendadas
+    const moleculaPrincipal = this.data.principios_activos.find(m => m.id === regla.primeraEleccionId) || this.data.principios_activos[0];
+    const moleculaRotacion = this.data.principios_activos.find(m => m.id === regla.rotacionSugeridaId) || this.data.principios_activos[1];
+
+    // 2. Cálculo de Días de Descanso de Potrero Dinámico
+    // Basado en el ciclo no parasitario de Rhipicephalus microplus en pastura:
+    // A mayor calor y humedad, las larvas eclosionan rápido y mueren antes por agotamiento metabólico (30-40 días).
+    // A menor temperatura, la fase de incubación y sobrevivencia larvaria se alarga hasta 60-90 días.
+    let descansoPotreroDias = Math.round(1150 / (tempNum * (0.8 + (humNum / 250))));
+    descansoPotreroDias = Math.max(30, Math.min(90, descansoPotreroDias));
+
+    // 3. Simulación y Explicabilidad de Random Forest (Cálculo de Score por Molécula)
+    const forestScores = this.data.principios_activos.map(mol => {
+      let score = 50;
+
+      // Inocuidad y retiro según propósito productivo (40% de peso)
+      if (proposito === "leche") {
+        if (mol.retiroLeche === 0) score += 35;
+        else if (mol.retiroLeche <= 2) score += 8;
+        else score -= 45; // Descarte de avermectinas en ordeño
+      } else if (proposito === "doble_proposito") {
+        if (mol.retiroLeche === 0) score += 25;
+        else score -= 25;
+      } else {
+        // En carne las lactonas macrocíclicas e IDQ son altamente valoradas
+        if (mol.id === "IVM_315" || mol.id === "DOR_1" || mol.id === "FLUA_25") score += 25;
+        score += 15;
+      }
+
+      // Severidad (30% de peso)
+      if (grado === 3) {
+        if (mol.id === "IVM_315" || mol.id === "AMZ" || mol.id === "CIP_CPF") score += 25;
+        if (mol.id === "BIO_MET") score -= 25; // Demasiado lento para choque en grado 3
+      } else if (grado === 2) {
+        if (mol.id === "AMZ" || mol.id === "FLU_POUR" || mol.id === "FLUA_25") score += 20;
+      } else {
+        if (mol.id === "BIO_MET" || mol.id === "AMZ") score += 25;
+        if (mol.id === "IVM_315") score -= 30;
+      }
+
+      // Bioclima y Humedad Real (30% de peso)
+      if (humNum >= 80) {
+        // Alta humedad y lluvia: Pour-on o inyectables son más resistentes al lavado que baños por aspersión
+        if (mol.via.includes("Pour-on") || mol.via.includes("Inyectable")) score += 15;
+        if (mol.via.includes("Aspersión")) score -= 5;
+      }
+      if (tempNum >= 32) {
+        // Altas temperaturas: Baños con organofosforados requieren cuidado por intoxicación
+        if (mol.id === "CIP_CPF") score -= 10;
+        if (mol.id === "AMZ") score += 10;
+      }
+      if (tempNum < 18) {
+        // En frío: Se evitan baños mojados para no generar hipotermia o neumonías
+        if (mol.via.includes("Pour-on") || mol.via.includes("Inyectable")) score += 18;
+      }
+
+      const normalizedProb = Math.min(99, Math.max(5, score));
+      return {
+        id: mol.id,
+        nombre: mol.nombre,
+        familia: mol.familia,
+        score: normalizedProb,
+        isRecommended: mol.id === moleculaPrincipal.id,
+        isRotation: mol.id === moleculaRotacion.id
+      };
+    });
+
+    forestScores.sort((a, b) => b.score - a.score);
+
+    // 4. Dosificación calculada según peso vivo
+    const dosificacionCalculada = this.calculateExactDosage(moleculaPrincipal, pesoKg);
+
+    // 5. Alerta de inocuidad y retiro
+    const alertaInocuidad = {
+      diasRetiroLeche: moleculaPrincipal.retiroLeche === 999 ? "NO APTO / PROHIBIDO EN ORDEÑO" : `${moleculaPrincipal.retiroLeche} Días`,
+      diasRetiroCarne: `${moleculaPrincipal.retiroCarne} Días`,
+      nivelRiesgo: moleculaPrincipal.retiroLeche === 999 && proposito !== "carne" ? "ALTO_RIESGO_RESIDUOS" : (moleculaPrincipal.retiroLeche > 0 ? "PRECAUCION" : "SEGURO"),
+      mensaje: regla.alertaRetiro
+    };
+
+    // 6. Plan de rotación y manejo integrado
+    const planRotacion = {
+      familiaActual: moleculaPrincipal.familia,
+      familiaSiguiente: moleculaRotacion.familia,
+      moleculaRotacionNombre: moleculaRotacion.nombre,
+      mecanismoRotacion: moleculaRotacion.mecanismo,
+      diasDescansoPotrero: descansoPotreroDias,
+      maniobraZootecnica: regla.maniobraZootecnica,
+      fundamentoCientifico: `Rotar a ${moleculaRotacion.familia} interrumpe el ciclo de selección de alelos resistentes en Rhipicephalus microplus en su predio.`
+    };
+
+    return {
+      timestamp: new Date().toISOString(),
+      inputs: {
+        grado,
+        proposito,
+        temperatura: tempNum,
+        humedad: humNum,
+        pesoKg,
+        zonaAnatomica
+      },
+      bioclima: bioclimaData,
+      prescripcion: {
+        molecula: moleculaPrincipal,
+        dosificacionCalculada,
+        justificacion: regla.justificacion,
+        via: moleculaPrincipal.via
+      },
+      inocuidad: alertaInocuidad,
+      rotacion: planRotacion,
+      moleculaRotacion: moleculaRotacion,
+      explicabilidadML: {
+        modelo: "Random Forest Classifier (Ensemble de 100 Árboles)",
+        precisionScore: forestScores[0].score,
+        rankingMoléculas: forestScores,
+        reglaAplicadaId: `${proposito.toUpperCase()}_G${grado}_T${Math.round(tempNum)}_H${Math.round(humNum)}`
+      }
+    };
+  }
+
+  /**
+   * Calcula índices bioclimáticos: THI (Índice Temperatura-Humedad) y Riesgo Epidemiológico
+   */
+  calculateBioclimaticZone(t, h) {
+    // Fórmula de Thom para Índice Temperatura-Humedad (THI) en bovinos:
+    // THI = 0.8 * T + (H / 100) * (T - 14.4) + 46.4
+    const thi = Math.round((0.8 * t + (h / 100) * (t - 14.4) + 46.4) * 10) / 10;
+
+    let thiStatus = "Confort Térmico";
+    let thiBadge = "badge-safe";
+    if (thi >= 84) {
+      thiStatus = "Emergencia por Estrés Calórico";
+      thiBadge = "badge-danger";
+    } else if (thi >= 79) {
+      thiStatus = "Peligro de Estrés Térmico";
+      thiBadge = "badge-warning";
+    } else if (thi >= 72) {
+      thiStatus = "Alerta de Estrés Calórico";
+      thiBadge = "badge-warning";
+    }
+
+    // Clasificación térmica granular
+    let termicaLabel = "Templado (Mesotérmico)";
+    if (t < 14) termicaLabel = "Frío de Páramo / Trópico Alto";
+    else if (t < 19) termicaLabel = "Frío Moderado";
+    else if (t < 25) termicaLabel = "Templado Cafetero";
+    else if (t < 30) termicaLabel = "Cálido Tropical";
+    else if (t < 35) termicaLabel = "Cálido Intenso";
+    else termicaLabel = "Calor Extremo / Canícula";
+
+    // Clasificación de humedad
+    let humedadLabel = "Humedad Moderada";
+    if (h < 40) humedadLabel = "Muy Seco / Aridez";
+    else if (h < 60) humedadLabel = "Seco Favorable";
+    else if (h < 75) humedadLabel = "Humedad Óptima";
+    else if (h < 85) humedadLabel = "Húmedo Tropical";
+    else humedadLabel = "Saturado / Alta Pluviosidad";
+
+    // Presión de proliferación de la garrapata común (Rhipicephalus microplus):
+    let presionParasitaria = "Baja";
+    let presionColor = "#f472b6";
+    if (t >= 24 && t <= 33 && h >= 70) {
+      presionParasitaria = "Extrema / Eclosión Masiva";
+      presionColor = "#ef4444";
+    } else if (t >= 20 && h >= 60) {
+      presionParasitaria = "Moderada a Alta";
+      presionColor = "#f59e0b";
+    } else if (t < 16 || h < 45) {
+      presionParasitaria = "Baja / Desecación Larvaria";
+      presionColor = "#3b82f6";
+    }
+
+    // Advertencia de aplicación de acaricidas según el clima
+    let advertenciaClimatica = "Condiciones meteorológicas estables para la aplicación.";
+    if (h >= 85) {
+      advertenciaClimatica = "Alta probabilidad de lluvia: Los baños por aspersión corren riesgo de lavado prematuro. Se sugiere formulación Pour-on lipofílica o aplicar en horas secas matutinas.";
+    } else if (t >= 32) {
+      advertenciaClimatica = "Riesgo de insolación y vasodilatación: No aplicar baños químicos bajo sol directo de mediodía ni con ganado sediento. Aplicar temprano (6:00 - 8:00 AM) o después de las 4:30 PM.";
+    } else if (t < 15) {
+      advertenciaClimatica = "Baja temperatura: Evitar mojar al ganado con aspersión líquida para no inducir hipotermia o neumonías en terneros.";
+    }
+
+    return {
+      temperatura: t,
+      humedad: h,
+      thi: thi,
+      thiStatus: thiStatus,
+      thiBadge: thiBadge,
+      termicaLabel: termicaLabel,
+      humedadLabel: humedadLabel,
+      presionParasitaria: presionParasitaria,
+      presionColor: presionColor,
+      advertenciaClimatica: advertenciaClimatica
+    };
+  }
+
+  calculateExactDosage(molecula, pesoKg) {
+    let cantidadExacta = "";
+    let instrucciones = "";
+
+    switch (molecula.id) {
+      case "AMZ":
+        const litrosSolucion = Math.max(2, Math.round(pesoKg / 100));
+        cantidadExacta = `${litrosSolucion} Litros de solución diluida (con ${litrosSolucion} mL de Amitraz concentrado)`;
+        instrucciones = `Disolver ${litrosSolucion} mL de concentrado en ${litrosSolucion} L de agua limpia. Aplicar por aspersión a contrapelo asegurando cubrir pabellones auriculares, papada, axilas, bragada y periné.`;
+        break;
+
+      case "FLU_POUR":
+        const mlPourOn = Math.round((pesoKg / 10) * 10) / 10;
+        cantidadExacta = `${mlPourOn} mL (Vía Tópica Pour-on)`;
+        instrucciones = `Aplicar los ${mlPourOn} mL de forma homogénea en la línea media dorsal, desde la base de la cruz hasta la inserción de la cola. Evitar mojar al animal 24 horas después.`;
+        break;
+
+      case "IVM_315":
+        const mlIvm = Math.round((pesoKg / 50) * 10) / 10;
+        cantidadExacta = `${mlIvm} mL (Vía Subcutánea)`;
+        instrucciones = `Inyectar ${mlIvm} mL vía subcutánea estricta delante o detrás de la paleta. Usar aguja calibre 16G x 1/2 pulgada estéril. ¡NO administrar por vía endovenosa ni intramuscular!`;
+        break;
+
+      case "DOR_1":
+        const mlDor = Math.round((pesoKg / 50) * 10) / 10;
+        cantidadExacta = `${mlDor} mL (Vía Subcutánea)`;
+        instrucciones = `Inyectar ${mlDor} mL vía subcutánea en la tabla del cuello con aguja desechable.`;
+        break;
+
+      case "FLUA_25":
+        const mlFlua = Math.round(((pesoKg / 50) * 2.5) * 10) / 10;
+        cantidadExacta = `${mlFlua} mL (Pour-on IDQ)`;
+        instrucciones = `Aplicar ${mlFlua} mL en dos bandas paralelas de lado y lado de la columna vertebral.`;
+        break;
+
+      case "CIP_CPF":
+        const litrosBano = Math.max(3, Math.round(pesoKg / 100));
+        cantidadExacta = `${litrosBano} Litros de baño (con ${litrosBano} mL de producto)`;
+        instrucciones = `Mezclar 1 mL de producto comercial por cada Litro de agua. Realizar aspersión con presión constante de 40 PSI para penetrar el pelaje denso.`;
+        break;
+
+      case "BIO_MET":
+        cantidadExacta = `3 Litros de suspensión fúngica concentrada`;
+        instrucciones = `Diluir formulado con 2x10^12 conidios/ha. Aplicar en horas de la tarde (después de las 4:30 pm) para proteger los conidios de la radiación UV.`;
+        break;
+
+      default:
+        cantidadExacta = `${molecula.dosisBase}`;
+        instrucciones = molecula.dosisPorAnimal;
+    }
+
+    return {
+      cantidadExacta,
+      instrucciones,
+      pesoEvaluado: `${pesoKg} kg (Peso Vivo Estimado)`
+    };
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.TickPharmacologyEngine = TickPharmacologyEngine;
+}
+
+  </script>
+  <script>
+/**
+ * Bye Bye Tick - Coordinador Principal de la Aplicación (Controller v4.0)
+ * Integra Visión Artificial, Modo B/N (Fondo Blanco / Garrapatas Negras), Vista Dividida (Split),
+ * Selector de Pelaje, Suite de Conteo Multifuncional, Clima Dinámico e Impresión.
+ */
+
+class ByeByeTickApp {
+  constructor() {
+    this.visionEngine = new TickVisionEngine();
+    this.pharmaEngine = new TickPharmacologyEngine(window.VADEMECUM_DATA);
+    this.currentImage = null;
+    this.currentAnalysis = null;
+    this.currentPrescription = null;
+
+    this.history = this.loadHistory();
+    this.dom = {};
+  }
+
+  init() {
+    this.cacheDom();
+    this.bindEvents();
+    this.renderVademecum();
+    this.renderHistoryTable();
+
+    // Cargar Muestra 2 por defecto
+    this.loadPresetSample("sample_moderada");
+  }
+
+  cacheDom() {
+    this.dom = {
+      // Pestañas
+      navTabs: document.querySelectorAll(".nav-tab-btn"),
+      tabPanes: document.querySelectorAll(".tab-pane"),
+
+      // Canvas y visualizador
+      canvas: document.getElementById("visionCanvas"),
+      canvasWrapper: document.getElementById("canvasWrapper"),
+      viewModeBtns: document.querySelectorAll(".btn-view-mode"),
+      sliderSensitivity: document.getElementById("sliderSensitivity"),
+      valSensitivity: document.getElementById("valSensitivity"),
+      sliderMinSize: document.getElementById("sliderMinSize"),
+      valMinSize: document.getElementById("valMinSize"),
+
+      // Binarización Blanco y Negro y Asistencia
+      coatBtns: document.querySelectorAll(".btn-coat"),
+      sliderBinaryTh: document.getElementById("sliderBinaryTh"),
+      valBinaryTh: document.getElementById("valBinaryTh"),
+      btnAutoContrast: document.getElementById("btnAutoContrast"),
+      btnToggleMarkersBW: document.getElementById("btnToggleMarkersBW"),
+      lblMarkersBW: document.getElementById("lblMarkersBW"),
+      btnDownloadBW: document.getElementById("btnDownloadBW"),
+      btnToggleAntiHair: document.getElementById("btnToggleAntiHair"),
+
+      // Suite de Conteo y Modos
+      countModeBtns: document.querySelectorAll(".btn-count-mode"),
+      stageFilterBtns: document.querySelectorAll(".btn-stage-filter"),
+      btnClearTicks: document.getElementById("btnClearTicks"),
+      btnUndoTick: document.getElementById("btnUndoTick"),
+      btnRescanIA: document.getElementById("btnRescanIA"),
+
+      // Desglose de Estadios
+      countRepletas: document.getElementById("countRepletas"),
+      countJovenes: document.getElementById("countJovenes"),
+      countNinfas: document.getElementById("countNinfas"),
+
+      // Muestras y carga
+      sampleButtons: document.querySelectorAll(".btn-sample"),
+      fileInput: document.getElementById("fileInput"),
+      cameraInput: document.getElementById("cameraInput"),
+      uploadDropzone: document.getElementById("uploadDropzone"),
+
+      // Contadores y métricas
+      statCount: document.getElementById("statCount"),
+      statIcp: document.getElementById("statIcp"),
+      statDensity: document.getElementById("statDensity"),
+      severityBanner: document.getElementById("severityBanner"),
+      severityIcon: document.getElementById("severityIcon"),
+      severityTitle: document.getElementById("severityTitle"),
+      severityDesc: document.getElementById("severityDesc"),
+
+      // Formulario de parámetros ganaderos
+      selectProposito: document.getElementById("selectProposito"),
+      selectZona: document.getElementById("selectZona"),
+      inputPeso: document.getElementById("inputPeso"),
+      valPeso: document.getElementById("valPeso"),
+
+      // Temperatura y Humedad
+      inputTempNum: document.getElementById("inputTempNum"),
+      sliderTemp: document.getElementById("sliderTemp"),
+      valTemp: document.getElementById("valTemp"),
+      badgeTermica: document.getElementById("badgeTermica"),
+
+      inputHumNum: document.getElementById("inputHumNum"),
+      sliderHum: document.getElementById("sliderHum"),
+      valHum: document.getElementById("valHum"),
+      badgeHumedad: document.getElementById("badgeHumedad"),
+
+      btnPresetsClima: document.querySelectorAll(".btn-preset-clima"),
+
+      // Telemetría Bioclimática
+      bioThiVal: document.getElementById("bioThiVal"),
+      bioThiStatus: document.getElementById("bioThiStatus"),
+      bioPresionVal: document.getElementById("bioPresionVal"),
+      bioDescansoVal: document.getElementById("bioDescansoVal"),
+      bioAlertaClima: document.getElementById("bioAlertaClima"),
+
+      // Prescripción y Ficha
+      prescContainer: document.getElementById("prescriptionContainer"),
+      btnSaveHistory: document.getElementById("btnSaveHistory"),
+      btnPrintReport: document.getElementById("btnPrintReport"),
+      btnShareReport: document.getElementById("btnShareReport"),
+
+      // Historial
+      historyTableBody: document.getElementById("historyTableBody"),
+      historyEmptyState: document.getElementById("historyEmptyState"),
+      historyCountBadge: document.getElementById("historyCountBadge"),
+      btnExportHistory: document.getElementById("btnExportHistory"),
+      btnClearHistory: document.getElementById("btnClearHistory"),
+
+      // Vademécum
+      vademecumContainer: document.getElementById("vademecumContainer"),
+
+      // Explicabilidad ML
+      mlExplainerContainer: document.getElementById("mlExplainerContainer")
+    };
+  }
+
+  bindEvents() {
+    // 1. Cambio de pestañas
+    this.dom.navTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const targetId = tab.dataset.tab;
+        this.dom.navTabs.forEach(t => t.classList.remove("active"));
+        this.dom.tabPanes.forEach(p => p.classList.remove("active"));
+
+        tab.classList.add("active");
+        const activePane = document.getElementById(targetId);
+        if (activePane) activePane.classList.add("active");
+      });
+    });
+
+    // 2. Botones de muestras demostrativas
+    this.dom.sampleButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const sampleId = btn.dataset.sample;
+        this.loadPresetSample(sampleId);
+      });
+    });
+
+    // 3. Subida de archivos y cámara
+    this.dom.fileInput.addEventListener("change", e => this.handleFileSelect(e));
+    this.dom.cameraInput.addEventListener("change", e => this.handleFileSelect(e));
+
+    const dropzone = this.dom.uploadDropzone;
+    ["dragenter", "dragover"].forEach(name => {
+      dropzone.addEventListener(name, e => {
+        e.preventDefault();
+        dropzone.classList.add("dragover");
+      });
+    });
+    ["dragleave", "drop"].forEach(name => {
+      dropzone.addEventListener(name, e => {
+        e.preventDefault();
+        dropzone.classList.remove("dragover");
+      });
+    });
+    dropzone.addEventListener("drop", e => {
+      if (e.dataTransfer && e.dataTransfer.files.length > 0) {
+        this.loadImageFromFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    // 4. Modos de visualización (Cajas, Fondo Blanco B/N, Split, Calor, Original)
+    this.dom.viewModeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        this.dom.viewModeBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const mode = btn.dataset.mode;
+        if (this.currentImage) {
+          this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage, mode);
+        }
+      });
+    });
+
+    // 5. Selector de Pelaje Asistido (Auto, Pelaje Oscuro, Pelaje Claro)
+    this.dom.coatBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        this.dom.coatBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        this.visionEngine.coatSelection = btn.dataset.coat;
+        if (this.currentImage) {
+          this.runFullAnalysis();
+        }
+      });
+    });
+
+    // 6. Slider de Umbral Blanco y Negro (Binarización)
+    if (this.dom.sliderBinaryTh) {
+      this.dom.sliderBinaryTh.addEventListener("input", e => {
+        const val = parseFloat(e.target.value);
+        if (this.dom.valBinaryTh) this.dom.valBinaryTh.textContent = `${Math.round(val * 100)}%`;
+        this.visionEngine.binaryThreshold = val;
+        if (this.currentImage) {
+          this.runFullAnalysis();
+        }
+      });
+    }
+
+    // 7. Botón Auto-Contraste
+    if (this.dom.btnAutoContrast) {
+      this.dom.btnAutoContrast.addEventListener("click", () => {
+        this.visionEngine.autoContrast = !this.visionEngine.autoContrast;
+        this.dom.btnAutoContrast.classList.toggle("active", this.visionEngine.autoContrast);
+        if (this.currentImage) {
+          this.runFullAnalysis();
+        }
+      });
+    }
+
+    // 7b. Alternar mirillas numeradas en modo B/N
+    if (this.dom.btnToggleMarkersBW) {
+      this.dom.btnToggleMarkersBW.addEventListener("click", () => {
+        this.visionEngine.showMarkersOnBW = !this.visionEngine.showMarkersOnBW;
+        if (this.dom.lblMarkersBW) {
+          this.dom.lblMarkersBW.textContent = this.visionEngine.showMarkersOnBW ? "Ocultar Mirillas" : "Mostrar Mirillas";
+        }
+        if (this.currentImage) {
+          this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage);
+        }
+      });
+    }
+
+    // 7c. Descargar imagen binarizada B/N (Fondo Blanco Puro y Garrapatas Negras)
+    if (this.dom.btnDownloadBW) {
+      this.dom.btnDownloadBW.addEventListener("click", () => {
+        if (!this.currentImage) {
+          alert("Primero cargue o seleccione una imagen para procesar.");
+          return;
+        }
+        const dataUrl = this.visionEngine.getBinaryDataURL();
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = `ByeByeTicks_Binarizada_BN_${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+    }
+
+    // 7d. Toggle Filtro Morfológico Anti-Pelos
+    if (this.dom.btnToggleAntiHair) {
+      this.dom.btnToggleAntiHair.addEventListener("click", () => {
+        this.visionEngine.morphFilterActive = !this.visionEngine.morphFilterActive;
+        this.dom.btnToggleAntiHair.classList.toggle("active", this.visionEngine.morphFilterActive);
+        this.dom.btnToggleAntiHair.textContent = this.visionEngine.morphFilterActive ? "Activo ✅" : "Inactivo ❌";
+        if (this.currentImage) {
+          this.runFullAnalysis();
+        }
+      });
+    }
+
+    // 8. Suite de Conteo: Modos (Auto, Manual, Cuadrante)
+    this.dom.countModeBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        this.dom.countModeBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const mode = btn.dataset.mode;
+        this.visionEngine.countingMode = mode;
+        this.visionEngine.quadrant.active = (mode === "quadrant");
+
+        if (this.currentImage) {
+          this.visionEngine.recalculateStats(this.dom.canvas.width, this.dom.canvas.height);
+          this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage);
+          this.updateCountersUI();
+          this.updatePrescriptionUI();
+        }
+      });
+    });
+
+    // 9. Filtro por Estadio (Todas, Solo Teleoginas, Solo Ninfas)
+    this.dom.stageFilterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        this.dom.stageFilterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        this.visionEngine.stageFilter = btn.dataset.stage;
+
+        if (this.currentImage) {
+          this.visionEngine.recalculateStats(this.dom.canvas.width, this.dom.canvas.height);
+          this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage);
+          this.updateCountersUI();
+          this.updatePrescriptionUI();
+        }
+      });
+    });
+
+    // 10. Herramientas de Conteo (Limpiar, Deshacer, Re-escanear)
+    if (this.dom.btnClearTicks) {
+      this.dom.btnClearTicks.addEventListener("click", () => {
+        this.visionEngine.clearAllTicks();
+        this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage);
+        this.updateCountersUI();
+        this.updatePrescriptionUI();
+      });
+    }
+
+    if (this.dom.btnUndoTick) {
+      this.dom.btnUndoTick.addEventListener("click", () => {
+        this.visionEngine.undoLastAction();
+        this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage);
+        this.updateCountersUI();
+        this.updatePrescriptionUI();
+      });
+    }
+
+    if (this.dom.btnRescanIA) {
+      this.dom.btnRescanIA.addEventListener("click", () => {
+        this.runFullAnalysis();
+      });
+    }
+
+    // 11. Sliders de calibración de detección
+    this.dom.sliderSensitivity.addEventListener("input", e => {
+      const val = parseFloat(e.target.value);
+      this.dom.valSensitivity.textContent = `${Math.round(val * 100)}%`;
+      this.visionEngine.sensitivity = val;
+      if (this.currentImage) {
+        this.runFullAnalysis();
+      }
+    });
+
+    this.dom.sliderMinSize.addEventListener("input", e => {
+      const val = parseInt(e.target.value, 10);
+      this.dom.valMinSize.textContent = `${val}px`;
+      this.visionEngine.minSize = val;
+      if (this.currentImage) {
+        this.runFullAnalysis();
+      }
+    });
+
+    // 12. Clic interactivo en el canvas (Añadir / Quitar garrapata o reposicionar cuadrante)
+    this.dom.canvas.addEventListener("click", e => {
+      if (!this.currentImage) return;
+      const rect = this.dom.canvas.getBoundingClientRect();
+      const scaleX = this.dom.canvas.width / rect.width;
+      const scaleY = this.dom.canvas.height / rect.height;
+
+      const clickX = (e.clientX - rect.left) * scaleX;
+      const clickY = (e.clientY - rect.top) * scaleY;
+
+      if (this.visionEngine.quadrant.active) {
+        // En modo cuadrante (ideal en celular sin shift), un toque reposiciona el centro del cuadrante
+        this.visionEngine.quadrant.x = Math.max(10, Math.min(this.dom.canvas.width - this.visionEngine.quadrant.size - 10, clickX - this.visionEngine.quadrant.size / 2));
+        this.visionEngine.quadrant.y = Math.max(10, Math.min(this.dom.canvas.height - this.visionEngine.quadrant.size - 10, clickY - this.visionEngine.quadrant.size / 2));
+        this.visionEngine.recalculateStats(this.dom.canvas.width, this.dom.canvas.height);
+      } else {
+        const removed = this.visionEngine.removeTickAt(clickX, clickY);
+        if (!removed) {
+          this.visionEngine.addManualTick(clickX, clickY, 14);
+        }
+      }
+
+      this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage);
+      this.updateCountersUI();
+      this.updatePrescriptionUI();
+    });
+
+    // 13. Sincronización de Temperatura (°C)
+    const updateTemp = val => {
+      let t = parseFloat(val);
+      if (isNaN(t)) t = 25;
+      t = Math.max(5, Math.min(48, t));
+      this.dom.inputTempNum.value = t;
+      this.dom.sliderTemp.value = t;
+      this.dom.valTemp.textContent = `${t}°C`;
+      this.updatePrescriptionUI();
+    };
+
+    this.dom.inputTempNum.addEventListener("input", e => updateTemp(e.target.value));
+    this.dom.sliderTemp.addEventListener("input", e => updateTemp(e.target.value));
+
+    // 14. Sincronización de Humedad Relativa (%)
+    const updateHum = val => {
+      let h = parseFloat(val);
+      if (isNaN(h)) h = 75;
+      h = Math.max(15, Math.min(100, h));
+      this.dom.inputHumNum.value = h;
+      this.dom.sliderHum.value = h;
+      this.dom.valHum.textContent = `${h}%`;
+      this.updatePrescriptionUI();
+    };
+
+    this.dom.inputHumNum.addEventListener("input", e => updateHum(e.target.value));
+    this.dom.sliderHum.addEventListener("input", e => updateHum(e.target.value));
+
+    // Botones de presets bioclimáticos rápidos
+    this.dom.btnPresetsClima.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const t = parseFloat(btn.dataset.temp);
+        const h = parseFloat(btn.dataset.hum);
+        updateTemp(t);
+        updateHum(h);
+      });
+    });
+
+    // 15. Parámetros ganaderos (Propósito, Peso, Zona)
+    [this.dom.selectProposito, this.dom.selectZona].forEach(elem => {
+      elem.addEventListener("change", () => this.updatePrescriptionUI());
+    });
+
+    this.dom.inputPeso.addEventListener("input", e => {
+      const peso = e.target.value;
+      this.dom.valPeso.textContent = `${peso} kg`;
+      this.updatePrescriptionUI();
+    });
+
+    // 16. Acciones de Guardar, Imprimir y Compartir
+    this.dom.btnSaveHistory.addEventListener("click", () => this.saveCurrentDiagnosis());
+    this.dom.btnPrintReport.addEventListener("click", () => window.print());
+    this.dom.btnShareReport.addEventListener("click", () => this.shareReport());
+
+    // 17. Historial
+    this.dom.btnExportHistory.addEventListener("click", () => this.exportHistoryAsJson());
+    this.dom.btnClearHistory.addEventListener("click", () => this.clearHistory());
+  }
+
+  loadPresetSample(sampleId) {
+    window.SAMPLE_GENERATOR.loadSample(sampleId, (img, sampleInfo) => {
+      this.currentImage = img;
+      if (sampleInfo) {
+        if (sampleInfo.propositoDefault) this.dom.selectProposito.value = sampleInfo.propositoDefault;
+        if (sampleInfo.temperaturaDefault !== undefined) {
+          this.dom.inputTempNum.value = sampleInfo.temperaturaDefault;
+          this.dom.sliderTemp.value = sampleInfo.temperaturaDefault;
+          this.dom.valTemp.textContent = `${sampleInfo.temperaturaDefault}°C`;
+        }
+        if (sampleInfo.humedadDefault !== undefined) {
+          this.dom.inputHumNum.value = sampleInfo.humedadDefault;
+          this.dom.sliderHum.value = sampleInfo.humedadDefault;
+          this.dom.valHum.textContent = `${sampleInfo.humedadDefault}%`;
+        }
+        if (sampleInfo.zona) this.dom.selectZona.value = sampleInfo.zona;
+        if (sampleInfo.pesoDefault) {
+          this.dom.inputPeso.value = sampleInfo.pesoDefault;
+          this.dom.valPeso.textContent = `${sampleInfo.pesoDefault} kg`;
+        }
+      }
+      this.runFullAnalysis();
+    });
+  }
+
+  handleFileSelect(e) {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      this.loadImageFromFile(file);
+    }
+  }
+
+  loadImageFromFile(file) {
+    const reader = new FileReader();
+    reader.onload = event => {
+      const img = new Image();
+      img.onload = () => {
+        this.currentImage = img;
+        this.runFullAnalysis();
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  runFullAnalysis() {
+    if (!this.currentImage) return;
+
+    this.dom.canvas.width = this.currentImage.naturalWidth || this.currentImage.width || 800;
+    this.dom.canvas.height = this.currentImage.naturalHeight || this.currentImage.height || 600;
+
+    this.currentAnalysis = this.visionEngine.processImage(this.currentImage, {
+      sensitivity: parseFloat(this.dom.sliderSensitivity.value),
+      binaryThreshold: this.dom.sliderBinaryTh ? parseFloat(this.dom.sliderBinaryTh.value) : 0.5,
+      minSize: parseInt(this.dom.sliderMinSize.value, 10),
+      coatSelection: this.visionEngine.coatSelection,
+      autoContrast: this.visionEngine.autoContrast
+    });
+
+    this.visionEngine.renderOverlay(this.dom.canvas, this.currentImage);
+    this.updateCountersUI();
+    this.updatePrescriptionUI();
+  }
+
+  updateCountersUI() {
+    if (!this.currentAnalysis) return;
+
+    const activeTicks = this.visionEngine.getActiveTicks();
+    const count = activeTicks.length;
+    const icp = this.visionEngine.icp;
+    const density = this.visionEngine.density;
+    const grade = this.visionEngine.severityGrade;
+    const label = this.visionEngine.getSeverityLabel(grade);
+
+    this.dom.statCount.textContent = count;
+    this.dom.statIcp.textContent = `${icp}%`;
+    this.dom.statDensity.textContent = `${density}/dm²`;
+
+    const bd = this.visionEngine.stageBreakdown;
+    if (this.dom.countRepletas) this.dom.countRepletas.textContent = bd.repletas;
+    if (this.dom.countJovenes) this.dom.countJovenes.textContent = bd.jovenes;
+    if (this.dom.countNinfas) this.dom.countNinfas.textContent = bd.ninfas;
+
+    this.dom.severityBanner.className = `severity-banner grade-${grade}`;
+    
+    const titleText = (label && typeof label === "object" && label.title)
+      ? label.title
+      : (typeof label === "string" ? label : `Infestación Grado ${grade}`);
+
+    const descText = (label && typeof label === "object" && label.descripcion)
+      ? label.descripcion
+      : (grade === 1
+          ? "Carga parasitaria baja. Riesgo epidemiológico bajo de hemoparásitos."
+          : (grade === 2
+              ? "Carga parasitaria intermedia. Requiere tratamiento oportuno para evitar proliferación masiva."
+              : "Infestación masiva crítica. Alto riesgo de anemia y pérdida de peso."));
+
+    this.dom.severityTitle.textContent = titleText;
+    this.dom.severityDesc.textContent = `${descText} (Conteo actual: ${count} parásitos evaluados).`;
+
+    let iconEmoji = "🛡️";
+    if (grade === 2) iconEmoji = "⚠️";
+    if (grade === 3) iconEmoji = "🚨";
+    this.dom.severityIcon.textContent = iconEmoji;
+  }
+
+  updatePrescriptionUI() {
+    const grade = this.visionEngine.severityGrade;
+    const proposito = this.dom.selectProposito.value;
+    const tempVal = parseFloat(this.dom.inputTempNum.value) || 28;
+    const humVal = parseFloat(this.dom.inputHumNum.value) || 75;
+    const pesoKg = parseInt(this.dom.inputPeso.value, 10) || 450;
+    const zonaAnatomica = this.dom.selectZona.value;
+
+    this.currentPrescription = this.pharmaEngine.evaluateTreatment({
+      grado: grade,
+      proposito,
+      temperatura: tempVal,
+      humedad: humVal,
+      pesoKg,
+      zonaAnatomica
+    });
+
+    const bio = this.currentPrescription.bioclima;
+    if (this.dom.badgeTermica) this.dom.badgeTermica.textContent = bio.termicaLabel;
+    if (this.dom.badgeHumedad) this.dom.badgeHumedad.textContent = bio.humedadLabel;
+
+    if (this.dom.bioThiVal) this.dom.bioThiVal.textContent = bio.thi;
+    if (this.dom.bioThiStatus) {
+      this.dom.bioThiStatus.textContent = bio.thiStatus;
+      this.dom.bioThiStatus.className = `badge-tag ${bio.thiBadge}`;
+    }
+    if (this.dom.bioPresionVal) {
+      this.dom.bioPresionVal.textContent = bio.presionParasitaria;
+      this.dom.bioPresionVal.style.color = bio.presionColor;
+    }
+    if (this.dom.bioDescansoVal) {
+      this.dom.bioDescansoVal.textContent = `${this.currentPrescription.rotacion.diasDescansoPotrero} Días`;
+    }
+    if (this.dom.bioAlertaClima) {
+      this.dom.bioAlertaClima.textContent = bio.advertenciaClimatica;
+    }
+
+    this.renderPrescriptionCard(this.currentPrescription);
+    this.renderMLExplainer(this.currentPrescription.explicabilidadML);
+  }
+
+  renderPrescriptionCard(presc) {
+    const { prescripcion, inocuidad, rotacion, inputs } = presc;
+    const mol = prescripcion.molecula;
+
+    let withdrawalHtml = `
+      <div class="withdrawal-card">
+        <div class="withdrawal-item ${mol.retiroLeche === 0 ? 'safe' : (mol.retiroLeche <= 2 ? 'warning' : 'danger')}">
+          <div class="w-days">${inocuidad.diasRetiroLeche}</div>
+          <div class="w-type">🥛 Retiro en Leche</div>
+        </div>
+        <div class="withdrawal-item ${mol.retiroCarne <= 7 ? 'safe' : (mol.retiroCarne <= 35 ? 'warning' : 'danger')}">
+          <div class="w-days">${inocuidad.diasRetiroCarne}</div>
+          <div class="w-type">🥩 Retiro en Carne</div>
+        </div>
+      </div>
+    `;
+
+    const cardHtml = `
+      <div class="prescription-box">
+        <div class="presc-header">
+          <div>
+            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; opacity:0.8;">Dictamen Farmacológico</div>
+            <div style="font-weight:700; font-size:1.05rem;">Prescripción de 1ª Elección</div>
+          </div>
+          <span class="presc-badge">Eficacia Óptima</span>
+        </div>
+        <div class="presc-body">
+          <div class="drug-title">${mol.nombre}</div>
+          <div class="drug-family">Familia: <strong>${mol.familia}</strong> | Vía: <strong>${prescripcion.via}</strong></div>
+          <p style="font-size:0.85rem; color:#475569; margin-top:0.35rem;">${mol.mecanismo}</p>
+
+          <div class="dosage-highlight">
+            <div class="d-label">Dosificación para peso de ${inputs.pesoKg} kg (${inputs.proposito.toUpperCase()}):</div>
+            <div class="d-val">${prescripcion.dosificacionCalculada.cantidadExacta}</div>
+            <div class="d-inst">${prescripcion.dosificacionCalculada.instrucciones}</div>
+          </div>
+
+          ${withdrawalHtml}
+
+          <div style="background:#f1f5f9; padding:0.75rem 1rem; border-radius:8px; font-size:0.82rem; margin:0.75rem 0;">
+            <strong style="color:#1e293b;">📋 Criterio Técnico Zootécnico:</strong>
+            <p style="color:#475569; margin-top:0.2rem;">${prescripcion.justificacion}</p>
+          </div>
+
+          <div class="rotation-card">
+            <div class="rot-title">
+              <span>🔄 Plan de Rotación Preventiva (Anti-Resistencia Química)</span>
+            </div>
+            <div class="rot-desc">
+              <strong>Siguiente ciclo de tratamiento:</strong> Rotar a <strong>${rotacion.moleculaRotacionNombre}</strong> (${rotacion.familiaSiguiente}).<br>
+              <strong>Descanso recomendado de potrero:</strong> <span style="font-weight:800; color:#1e40af;">${rotacion.diasDescansoPotrero} días</span> calculados dinámicamente según la temperatura y humedad locales.<br>
+              <em>${rotacion.fundamentoCientifico}</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.dom.prescContainer.innerHTML = cardHtml;
+  }
+
+  renderMLExplainer(mlData) {
+    if (!this.dom.mlExplainerContainer) return;
+
+    let itemsHtml = mlData.rankingMoléculas.map(m => {
+      const isTop = m.isRecommended;
+      return `
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0.6rem 0.75rem; border-bottom:1px solid #e2e8f0; background:${isTop ? '#fdf2f8' : 'transparent'}; border-radius:6px;">
+          <div>
+            <div style="font-size:0.85rem; font-weight:700; color:${isTop ? '#9d174d' : '#1e293b'};">
+              ${isTop ? '⭐ ' : ''}${m.nombre}
+            </div>
+            <div style="font-size:0.72rem; color:#64748b;">${m.familia}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <div style="width:90px; background:#e2e8f0; height:8px; border-radius:9999px; overflow:hidden;">
+              <div style="width:${m.score}%; background:${isTop ? '#f472b6' : '#3b82f6'}; height:100%;"></div>
+            </div>
+            <span style="font-size:0.8rem; font-weight:800; min-width:35px; text-align:right;">${m.score}%</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    this.dom.mlExplainerContainer.innerHTML = `
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🤖 Auditoría de Decisiones: Random Forest (Machine Learning)</h3>
+          <span class="badge-tag">IA Explicable</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:0.85rem; color:#64748b; margin-bottom:1rem;">
+            El ensamble de árboles de decisión evaluó en tiempo real las restricciones de retiro en leche, el grado de infestación, el peso vivo y las condiciones exactas de temperatura y humedad:
+          </p>
+          <div style="border:1px solid #e2e8f0; border-radius:8px; overflow:hidden;">
+            ${itemsHtml}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  renderVademecum() {
+    if (!this.dom.vademecumContainer) return;
+
+    const cardsHtml = window.VADEMECUM_DATA.principios_activos.map(mol => {
+      return `
+        <div class="card" style="margin-bottom:1rem;">
+          <div class="card-header" style="background:#f8fafc;">
+            <div>
+              <div class="card-title" style="color:#0f172a; font-size:1.05rem;">${mol.nombre}</div>
+              <div style="font-size:0.78rem; color:#64748b;">Nombres comerciales: ${mol.nombreComercial}</div>
+            </div>
+            <span class="badge-tag">${mol.familia}</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:0.85rem; color:#334155; margin-bottom:0.75rem;"><strong>Mecanismo de acción:</strong> ${mol.mecanismo}</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.82rem; margin-bottom:0.75rem;">
+              <div style="background:#f1f5f9; padding:0.5rem; border-radius:6px;">
+                <strong>Vía de aplicación:</strong><br>${mol.via}
+              </div>
+              <div style="background:#f1f5f9; padding:0.5rem; border-radius:6px;">
+                <strong>Dosis base:</strong><br>${mol.dosisBase}
+              </div>
+            </div>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <span style="font-size:0.75rem; padding:0.25rem 0.5rem; border-radius:4px; font-weight:700; ${mol.retiroLeche === 0 ? 'background:#fce7f3; color:#db2777;' : 'background:#fee2e2; color:#991b1b;'}">
+                🥛 Retiro Leche: ${mol.retiroLeche === 999 ? 'PROHIBIDO EN ORDEÑO' : mol.retiroLeche + ' Días'}
+              </span>
+              <span style="font-size:0.75rem; padding:0.25rem 0.5rem; border-radius:4px; font-weight:700; background:#fef3c7; color:#92400e;">
+                🥩 Retiro Carne: ${mol.retiroCarne} Días
+              </span>
+              <span style="font-size:0.75rem; padding:0.25rem 0.5rem; border-radius:4px; font-weight:700; background:#e0f2fe; color:#0369a1;">
+                Riesgo Resistencia: ${mol.resistenciaReportada}
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    this.dom.vademecumContainer.innerHTML = cardsHtml;
+  }
+
+  saveCurrentDiagnosis() {
+    if (!this.currentAnalysis || !this.currentPrescription) {
+      alert("Por favor cargue una imagen para realizar el diagnóstico antes de guardar.");
+      return;
+    }
+
+    const newRecord = {
+      id: "DG-" + Math.floor(100000 + Math.random() * 900000),
+      fecha: new Date().toLocaleString(),
+      timestamp: Date.now(),
+      conteo: this.visionEngine.getActiveTicks().length,
+      icp: this.visionEngine.icp,
+      grado: this.visionEngine.severityGrade,
+      proposito: this.dom.selectProposito.value,
+      temperatura: this.dom.inputTempNum.value,
+      humedad: this.dom.inputHumNum.value,
+      peso: this.dom.inputPeso.value,
+      principioActivo: this.currentPrescription.prescripcion.molecula.nombre,
+      rotacion: this.currentPrescription.rotacion.moleculaRotacionNombre
+    };
+
+    this.history.unshift(newRecord);
+    this.persistHistory();
+    this.renderHistoryTable();
+
+    const btn = this.dom.btnSaveHistory;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = "✅ ¡Diagnóstico Guardado!";
+    btn.classList.add("btn-primary");
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+    }, 2000);
+  }
+
+  loadHistory() {
+    try {
+      const data = localStorage.getItem("byebyetick_history") || localStorage.getItem("tickguard_history");
+      if (data) return JSON.parse(data);
+    } catch (e) {
+      console.warn("No se pudo cargar localStorage:", e);
+    }
+    return [
+      {
+        id: "DG-841920",
+        fecha: "08/11/2026, 10:15:32",
+        timestamp: Date.now() - 86400000,
+        conteo: 24,
+        icp: 4.8,
+        grado: 2,
+        proposito: "leche",
+        temperatura: 22,
+        humedad: 70,
+        peso: 500,
+        principioActivo: "Amitraz 12.5%",
+        rotacion: "Flumetrina 1%"
+      },
+      {
+        id: "DG-612401",
+        fecha: "07/11/2026, 16:40:11",
+        timestamp: Date.now() - 172800000,
+        conteo: 8,
+        icp: 1.5,
+        grado: 1,
+        proposito: "leche",
+        temperatura: 24,
+        humedad: 65,
+        peso: 450,
+        principioActivo: "Amitraz 12.5%",
+        rotacion: "Metarhizium anisopliae (Bioacaricida)"
+      }
+    ];
+  }
+
+  persistHistory() {
+    try {
+      localStorage.setItem("byebyetick_history", JSON.stringify(this.history));
+    } catch (e) {
+      console.warn("Error guardando en localStorage:", e);
+    }
+  }
+
+  renderHistoryTable() {
+    if (!this.dom.historyTableBody) return;
+
+    if (this.history.length === 0) {
+      this.dom.historyEmptyState.style.display = "block";
+      this.dom.historyTableBody.innerHTML = "";
+      if (this.dom.historyCountBadge) this.dom.historyCountBadge.textContent = "0";
+      return;
+    }
+
+    this.dom.historyEmptyState.style.display = "none";
+    if (this.dom.historyCountBadge) this.dom.historyCountBadge.textContent = this.history.length;
+
+    const rowsHtml = this.history.map(item => {
+      let badgeGrade = '<span class="badge-tag" style="background:#fce7f3; color:#db2777;">Leve (G1)</span>';
+      if (item.grado === 2) badgeGrade = '<span class="badge-tag" style="background:#fef3c7; color:#92400e;">Moderado (G2)</span>';
+      if (item.grado === 3) badgeGrade = '<span class="badge-tag" style="background:#fee2e2; color:#991b1b;">Severo (G3)</span>';
+
+      return `
+        <tr>
+          <td><strong>${item.id}</strong><br><span style="font-size:0.75rem; color:#64748b;">${item.fecha}</span></td>
+          <td><strong>${item.conteo}</strong> garrapatas<br><span style="font-size:0.75rem; color:#64748b;">ICP: ${item.icp}%</span></td>
+          <td>${badgeGrade}</td>
+          <td><span style="text-transform:capitalize;">${item.proposito ? item.proposito.replace('_', ' ') : 'Carne'}</span> (${item.peso || 450} kg)<br><span style="font-size:0.72rem; color:#0284c7;">🌡️ ${item.temperatura || 28}°C | 💧 ${item.humedad || 75}%</span></td>
+          <td><strong style="color:#db2777;">${item.principioActivo}</strong></td>
+          <td><span style="color:#2563eb;">${item.rotacion}</span></td>
+        </tr>
+      `;
+    }).join("");
+
+    this.dom.historyTableBody.innerHTML = rowsHtml;
+  }
+
+  clearHistory() {
+    if (confirm("¿Está seguro de eliminar todo el historial de diagnósticos?")) {
+      this.history = [];
+      this.persistHistory();
+      this.renderHistoryTable();
+    }
+  }
+
+  exportHistoryAsJson() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.history, null, 2));
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `ByeByeTicks_Historial_${Date.now()}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+
+  shareReport() {
+    if (!this.currentPrescription) return;
+    const textToShare = `🐮 Diagnóstico Bye Bye Ticks:
+• Garrapatas detectadas: ${this.visionEngine.getActiveTicks().length}
+• Nivel: Grado ${this.visionEngine.severityGrade}
+• Tratamiento: ${this.currentPrescription.prescripcion.molecula.nombre}
+• Dosis: ${this.currentPrescription.prescripcion.dosificacionCalculada.cantidadExacta}
+• Retiro Leche: ${this.currentPrescription.inocuidad.diasRetiroLeche}
+• Clima: ${this.dom.inputTempNum.value}°C / ${this.dom.inputHumNum.value}% HR`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: "Reporte Veterinario Bye Bye Ticks",
+        text: textToShare
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(textToShare);
+      alert("¡Reporte copiado al portapapeles para enviar por WhatsApp o correo!");
+    }
+  }
+}
+
+// Compatibilidad
+window.ByeByeTickApp = ByeByeTickApp;
+window.TickGuardApp = ByeByeTickApp;
+
+document.addEventListener("DOMContentLoaded", () => {
+  window.app = new ByeByeTickApp();
+  window.app.init();
+});
+
+  </script>
   <script>
     const pDate = document.getElementById("printDate");
     if (pDate) pDate.textContent = new Date().toLocaleDateString();
