@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Alerta Ganadera Inteligente (Bye Bye Tick) - Diagnóstico Visual y Selección de Tratamiento Acaricida en Ganado Bovino con Visión Artificial y Machine Learning.">
+  <meta name="theme-color" content="#f472b6">
+  <title>Bye Bye Tick | Alerta Ganadera Inteligente</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐮</text></svg>">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       Encabezado Principal y Pestañas de Navegación
+       ========================================================================== -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-group">
+        <div class="logo-icon">🐮</div>
+        <div>
+          <div class="app-title">
+            Bye Bye Tick
+            <span class="badge-tag">IA Veterinaria v4.0</span>
+          </div>
+          <div class="app-subtitle">Alerta Ganadera Inteligente | Diagnóstico Visual &amp; Rotación Acaricida</div>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="Navegación principal">
+        <button class="nav-tab-btn active" data-tab="tab-diagnostico">
+          <span>🩺</span> Diagnóstico
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-historial">
+          <span>📊</span> Historial <span id="historyCountBadge" class="badge-tag" style="padding:0.1rem 0.4rem; font-size:0.65rem;">2</span>
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-vademecum">
+          <span>📚</span> Vademécum
+        </button>
+        <button class="nav-tab-btn" data-tab="tab-ia">
+          <span>🤖</span> Modelo ML
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       Cabecera exclusiva para Impresión / PDF
+       ========================================================================== -->
+  <div class="print-only-header">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <h1 style="font-size:1.5rem; color:#db2777; margin:0;">DICTAMEN TÉCNICO VETERINARIO: BYE BYE TICK</h1>
+        <p style="font-size:0.85rem; color:#555; margin:0.2rem 0 0 0;">Alerta Ganadera Inteligente - Sistema de Diagnóstico de Garrapatas (Rhipicephalus microplus)</p>
+      </div>
+      <div style="text-align:right; font-size:0.8rem; color:#666;">
+        <div><strong>Fecha:</strong> <span id="printDate"></span></div>
+        <div><strong>Validez:</strong> Dictamen Oficial de Campo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Contenido Central
+       ========================================================================== -->
+  <main class="app-main">
+
+    <!-- ----------------------------------------------------------------------
+         PESTAÑA 1: DIAGNÓSTICO EN VIVO (Captura, Conteo y Prescripción)
+         ---------------------------------------------------------------------- -->
+    <section id="tab-diagnostico" class="tab-pane active">
+      
+      <!-- Barra de Muestras Demostrativas de Campo -->
+      <div class="sample-bar no-print">
+        <div class="sample-bar-title">
+          <span>⚡</span>
+          <span>Casos Demostrativos de Campo (1 Clic):</span>
+        </div>
+        <div class="sample-buttons">
+          <button class="btn-sample" data-sample="sample_leve">
+            <span>🟢</span> Muestra 1: Oreja (Leve - 8 garrapatas)
+          </button>
+          <button class="btn-sample" data-sample="sample_moderada">
+            <span>🟡</span> Muestra 2: Pliegue Ubre (Moderada - 24 garrapatas)
+          </button>
+          <button class="btn-sample" data-sample="sample_severa">
+            <span>🔴</span> Muestra 3: Lomo Novillo (Severa - 48 garrapatas)
+          </button>
+          <button class="btn-sample" data-sample="sample_cuello_cebu">
+            <span>🐂</span> Muestra 4: Cuello Cebú (Moderada - 36 garrapatas)
+          </button>
+        </div>
+      </div>
+
+      <div class="diagnosis-grid">
+
+        <!-- Columna Izquierda: Visor, Herramientas de Conteo e Imagen -->
+        <div class="left-col">
+
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <span>📸</span>
+                <span>Análisis Visual por Computadora &amp; Conteo</span>
+              </h2>
+              <span class="badge-tag" style="background:#e0e7ff; color:#3730a3;">Multi-Modal CV + B/N</span>
+            </div>
+            
+            <div class="card-body">
+
+              <!-- Zona de Carga de Imágenes -->
+              <div class="upload-dropzone no-print" id="uploadDropzone">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Subir fotografía de la zona afectada</div>
+                <div class="upload-subtext">Arrastre aquí una imagen de su predio o capture con la cámara</div>
+                
+                <div class="upload-actions">
+                  <label class="btn btn-primary" style="font-size:0.82rem; padding:0.5rem 0.85rem; cursor:pointer;">
+                    <span>📱</span> Tomar con Cámara
+                    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;">
+                  </label>
+
+                  <label class="btn btn-secondary" style="font-size:0.82rem; padding:0.5rem 0.85rem; cursor:pointer;">
+                    <span>📁</span> Subir Mi Foto
+                    <input type="file" id="fileInput" accept="image/*" style="display:none;">
+                  </label>
+                </div>
+              </div>
+
+              <!-- ==============================================================
+                   Barra Asistente de Imagen: Selector de Pelaje y Binarización
+                   ============================================================== -->
+              <div class="image-assistant-bar no-print">
+                <div class="coat-selector-group">
+                  <span style="font-size:0.75rem; font-weight:800; color:#334155;">Pelaje Bovino:</span>
+                  <div class="coat-btn-group">
+                    <button class="btn-coat active" data-coat="auto">🌓 Auto</button>
+                    <button class="btn-coat" data-coat="dark">🐂 Oscuro / Negro</button>
+                    <button class="btn-coat" data-coat="light">🐄 Claro / Blanco</button>
+                  </div>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                  <button class="btn-count-action" id="btnAutoContrast" title="Normalizar iluminación de sombras o sol intenso">
+                    <span>✨</span> Auto-Contraste
+                  </button>
+                </div>
+              </div>
+
+              <!-- ==============================================================
+                   Suite de Conteo: Modos, Herramientas y Filtros de Estadio
+                   ============================================================== -->
+              <div class="counting-suite-bar no-print">
+                <!-- Modos de Conteo -->
+                <div>
+                  <div style="font-size:0.7rem; font-weight:700; color:#475569; margin-bottom:0.25rem;">
+                    🎯 Modo de Conteo:
+                  </div>
+                  <div class="count-mode-group">
+                    <button class="btn-count-mode active" data-mode="auto">🤖 IA Automática</button>
+                    <button class="btn-count-mode" data-mode="manual">👆 Punteo Manual</button>
+                    <button class="btn-count-mode" data-mode="quadrant">📐 Cuadrante 10x10 cm</button>
+                  </div>
+                </div>
+
+                <!-- Filtro de Estadios Clínicos -->
+                <div>
+                  <div style="font-size:0.7rem; font-weight:700; color:#475569; margin-bottom:0.25rem;">
+                    🔬 Filtrar Estadio:
+                  </div>
+                  <div class="count-stage-group">
+                    <button class="btn-stage-filter active" data-stage="all">🔘 Todas</button>
+                    <button class="btn-stage-filter" data-stage="repleta">🔴 Solo Teleoginas</button>
+                    <button class="btn-stage-filter" data-stage="ninfa">🟡 Ninfas</button>
+                  </div>
+                </div>
+
+                <!-- Acciones Rápidas -->
+                <div>
+                  <div style="font-size:0.7rem; font-weight:700; color:#475569; margin-bottom:0.25rem;">
+                    ⚙️ Herramientas:
+                  </div>
+                  <div class="count-actions-group">
+                    <button class="btn-count-action" id="btnUndoTick" title="Deshacer último clic">↩️ Deshacer</button>
+                    <button class="btn-count-action" id="btnClearTicks" title="Limpiar marcas y contar manualmente">🧹 Limpiar</button>
+                    <button class="btn-count-action" id="btnRescanIA" title="Volver a escanear con IA">✨ Re-escanear</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Visor de Imagen y Detecciones -->
+              <div class="canvas-wrapper" id="canvasWrapper">
+                <canvas id="visionCanvas" width="720" height="540"></canvas>
+              </div>
+
+              <!-- Desglose Clínico por Estadios -->
+              <div class="stage-breakdown-card no-print">
+                <div class="stage-item">
+                  <div class="stage-val" id="countRepletas" style="color:#ef4444;">0</div>
+                  <div class="stage-lbl">🔴 Hembras Repletas (Teleoginas)</div>
+                </div>
+                <div class="stage-item">
+                  <div class="stage-val" id="countJovenes" style="color:#f59e0b;">0</div>
+                  <div class="stage-lbl">🟡 Adultas Jóvenes / Semi</div>
+                </div>
+                <div class="stage-item">
+                  <div class="stage-val" id="countNinfas" style="color:#f472b6;">0</div>
+                  <div class="stage-lbl">🟢 Ninfas / Inmaduras</div>
+                </div>
+              </div>
+
+              <!-- Barra de Capas Visuales (Incluye Fondo Blanco en B/N y Split) -->
+              <div class="canvas-toolbar no-print">
+                <div class="view-mode-group">
+                  <button class="btn-view-mode active" data-mode="boxes">🎯 Cajas / Detección</button>
+                  <button class="btn-view-mode" data-mode="binary_bw" title="Fondo Blanco con garrapatas en negro">📄 Fondo Blanco (B/N)</button>
+                  <button class="btn-view-mode" data-mode="split" title="Comparador Mitad Foto Real / Mitad Binarizada">🌓 Split 50/50</button>
+                  <button class="btn-view-mode" data-mode="heatmap">🔥 Mapa de Calor</button>
+                  <button class="btn-view-mode" data-mode="clean">🖼️ Original</button>
+                </div>
+
+                <!-- Controles Extras de Binarización B/N -->
+                <div class="bw-extra-tools">
+                  <button class="btn-count-action" id="btnToggleMarkersBW" title="Alternar mirillas numeradas en modo Blanco y Negro">
+                    👁️ <span id="lblMarkersBW">Ocultar Mirillas</span>
+                  </button>
+                  <button class="btn-count-action" id="btnDownloadBW" title="Descargar la imagen procesada en blanco y negro (Fondo blanco y garrapatas negras)">
+                    💾 Descargar B/N
+                  </button>
+                </div>
+
+                <div class="click-hint">
+                  <span>💡</span> <span>Toca cualquier punto para añadir una garrapata o toca una mirilla para eliminarla</span>
+                </div>
+              </div>
+
+              <!-- Panel de Calibración de Sensibilidad y Umbral Binarizado -->
+              <div class="calibration-panel no-print">
+                <div class="slider-group">
+                  <div class="slider-label">
+                    <span>Sensibilidad General de IA:</span>
+                    <span id="valSensitivity" style="color:var(--primary); font-weight:800;">50%</span>
+                  </div>
+                  <input type="range" class="custom-range" id="sliderSensitivity" min="0.1" max="0.9" step="0.05" value="0.5">
+                </div>
+
+                <div class="slider-group">
+                  <div class="slider-label">
+                    <span>Umbral Binarización (B/N):</span>
+                    <span id="valBinaryTh" style="color:var(--primary); font-weight:800;">50%</span>
+                  </div>
+                  <input type="range" class="custom-range" id="sliderBinaryTh" min="0.15" max="0.85" step="0.05" value="0.5">
+                </div>
+
+                <div class="slider-group">
+                  <div class="slider-label">
+                    <span>Filtro Tamaño Mínimo:</span>
+                    <span id="valMinSize" style="color:var(--primary); font-weight:800;">8px</span>
+                  </div>
+                  <input type="range" class="custom-range" id="sliderMinSize" min="4" max="25" step="1" value="8">
+                </div>
+
+                <div class="slider-group" style="display:flex; align-items:center; justify-content:space-between;">
+                  <div>
+                    <div style="font-size:0.75rem; font-weight:700; color:#334155;">🧹 Filtro Anti-Pelos:</div>
+                    <div style="font-size:0.65rem; color:#64748b;">Morfología de apertura (3x3)</div>
+                  </div>
+                  <button class="btn-count-action active" id="btnToggleAntiHair" style="padding:0.35rem 0.65rem; font-size:0.75rem;">
+                    Activo ✅
+                  </button>
+                </div>
+              </div>
+
+              <!-- ==============================================================
+                   Guía de Asistencia Activa: ¿Cómo ayudar a la detección en fotos reales?
+                   ============================================================== -->
+              <div class="field-guide-card no-print">
+                <div class="field-guide-header">
+                  <span>💡</span>
+                  <span>¿Cómo ayudar a la IA con la detección en fotos reales?</span>
+                </div>
+                
+                <div class="field-guide-grid">
+                  <div class="guide-col">
+                    <div class="guide-subtitle">🛠️ Herramientas de Corrección en Pantalla</div>
+                    <ul class="field-guide-list">
+                      <li><strong>📄 Fondo Blanco (B/N):</strong> Activa esta vista para ver el post-procesamiento. Si ves demasiado ruido o faltan garrapatas, mueve el deslizador <em>"Umbral Binarización (B/N)"</em> hasta que los cuerpos se vean negros y el pelo blanco.</li>
+                      <li><strong>🧹 Filtro Anti-Pelos:</strong> Déjalo activado para que la erosión morfológica elimine los pelos finos (1-2 px) y no los cuente por error.</li>
+                      <li><strong>🐂 Selector de Pelaje:</strong> Si la vaca es negra o marrón oscura, pulsa <em>"Oscuro / Negro"</em>; si es blanca o crema, pulsa <em>"Claro / Blanco"</em>.</li>
+                      <li><strong>👆 Toque de Corrección (1 Toque):</strong> Si la cámara no vio una garrapata, tócala y se sumará; si marcó un falso positivo, toca la mirilla para borrarlo.</li>
+                      <li><strong>📐 Cuadrante 10x10 cm:</strong> Arrástralo sobre la zona limpia de la piel para no incluir el pasto, el suelo ni tubos del corral.</li>
+                    </ul>
+                  </div>
+
+                  <div class="guide-col">
+                    <div class="guide-subtitle">📸 Tips de Captura Fotográfica con el Celular</div>
+                    <ul class="field-guide-list">
+                      <li><strong>Distancia corta:</strong> Toma la foto a <strong>15 a 25 cm</strong> de distancia perpendicular (90°) a la piel del animal.</li>
+                      <li><strong>Apartar el pelo:</strong> En razas de pelo largo, abre o peina levemente los mechones con los dedos hacia los lados para despejar la dermis antes del disparo.</li>
+                      <li><strong>Evitar flash directo:</strong> El flash produce reflejos blancos cuticulares que dividen la garrapata; prefiere luz natural indirecta o sombra bajo techo.</li>
+                      <li><strong>Encuadre limpio:</strong> Asegúrate de que el encuadre solo contenga piel del bovino, evitando que se filtre pasto iluminado o cielo que descalibren el sensor de la cámara.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Auditoría Explicable de Random Forest -->
+          <div id="mlExplainerContainer" class="no-print"></div>
+
+        </div>
+
+        <!-- Columna Derecha: Contadores, Parámetros y Dictamen Farmacológico -->
+        <div class="right-col">
+
+          <!-- Métricas y Conteo en Tiempo Real -->
+          <div class="stats-grid">
+            <div class="stat-box highlight">
+              <div class="stat-val primary" id="statCount">0</div>
+              <div class="stat-label">Garrapatas Evaluadas</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="statIcp">0.0%</div>
+              <div class="stat-label">Índice Carga (ICP)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="statDensity">0/dm²</div>
+              <div class="stat-label">Densidad Estimada</div>
+            </div>
+          </div>
+
+          <!-- Banner de Severidad Detectada -->
+          <div id="severityBanner" class="severity-banner grade-1">
+            <div class="severity-icon" id="severityIcon">🛡️</div>
+            <div class="severity-info">
+              <h4 id="severityTitle">Grado 1: Infestación Leve</h4>
+              <p id="severityDesc">Cargando análisis de la muestra...</p>
+            </div>
+          </div>
+
+          <!-- ==========================================================================
+               Estación Bioclimática: Entrada Exacta de Temperatura y Humedad
+               ========================================================================== -->
+          <div class="card no-print">
+            <div class="card-header">
+              <h3 class="card-title">
+                <span>🌡️</span>
+                <span>Estación Meteorológica &amp; Bioclima Local</span>
+              </h3>
+              <span class="badge-tag" style="background:#e0f2fe; color:#0369a1;">Entrada Exacta de Datos</span>
+            </div>
+            <div class="card-body">
+              
+              <!-- Presets Rápidos de Regiones Ganaderas -->
+              <div style="font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:0.35rem;">
+                ⚡ Presets Bioclimáticos de Campo:
+              </div>
+              <div class="climate-presets">
+                <button class="btn-preset-clima" data-temp="31" data-hum="82">🌴 Trópico Bajo Húmedo (31°C / 82%)</button>
+                <button class="btn-preset-clima" data-temp="22" data-hum="68">🌄 Valle Templado Cafetero (22°C / 68%)</button>
+                <button class="btn-preset-clima" data-temp="14" data-hum="75">🏔️ Trópico Alto Frío (14°C / 75%)</button>
+                <button class="btn-preset-clima" data-temp="34" data-hum="38">🏜️ Cálido Seco (34°C / 38%)</button>
+              </div>
+
+              <!-- Filas de Entrada Numérica + Deslizador -->
+              <div class="climate-input-row">
+                
+                <!-- Temperatura -->
+                <div class="climate-field">
+                  <div class="climate-field-header">
+                    <span class="climate-field-title">
+                      <span>🌡️</span> Temperatura (°C):
+                    </span>
+                    <input type="number" id="inputTempNum" class="climate-num-input" min="5" max="48" step="0.5" value="28">
+                  </div>
+                  <input type="range" class="custom-range" id="sliderTemp" min="5" max="48" step="0.5" value="28">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span id="badgeTermica" class="climate-badge">Cálido Tropical</span>
+                    <span id="valTemp" style="font-size:0.78rem; font-weight:800; color:#0284c7;">28°C</span>
+                  </div>
+                </div>
+
+                <!-- Humedad Relativa -->
+                <div class="climate-field">
+                  <div class="climate-field-header">
+                    <span class="climate-field-title">
+                      <span>💧</span> Humedad Relativa (%):
+                    </span>
+                    <input type="number" id="inputHumNum" class="climate-num-input" min="15" max="100" step="1" value="75">
+                  </div>
+                  <input type="range" class="custom-range" id="sliderHum" min="15" max="100" step="1" value="75">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span id="badgeHumedad" class="climate-badge" style="background:#fef3c7; color:#92400e;">Húmedo Tropical</span>
+                    <span id="valHum" style="font-size:0.78rem; font-weight:800; color:#0284c7;">75%</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Telemetría Bioclimática en Tiempo Real -->
+              <div class="bioclima-telemetry-box">
+                <div class="bio-grid">
+                  <div>
+                    <div class="bio-stat-val" id="bioThiVal">76.8</div>
+                    <div class="bio-stat-lbl">Índice THI (Estrés)</div>
+                    <div id="bioThiStatus" style="font-size:0.65rem; color:#fde047; font-weight:700;">Alerta</div>
+                  </div>
+                  <div>
+                    <div class="bio-stat-val" id="bioPresionVal" style="color:#ef4444; font-size:1.05rem;">Extrema</div>
+                    <div class="bio-stat-lbl">Presión Larvaria</div>
+                  </div>
+                  <div>
+                    <div class="bio-stat-val" id="bioDescansoVal" style="color:#f472b6;">35 Días</div>
+                    <div class="bio-stat-lbl">Descanso Potrero</div>
+                  </div>
+                </div>
+                <div class="bio-alerta-text" id="bioAlertaClima">
+                  Condiciones meteorológicas estables para la aplicación acaricida.
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Formulario de Parámetros Ganaderos -->
+          <div class="card no-print">
+            <div class="card-header">
+              <h3 class="card-title">
+                <span>📋</span>
+                <span>Variables del Bovino</span>
+              </h3>
+            </div>
+            <div class="card-body">
+              
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="selectProposito">Propósito Productivo:</label>
+                  <select class="form-select" id="selectProposito">
+                    <option value="leche" selected>🥛 Leche (Vacas en Ordeño)</option>
+                    <option value="carne">🥩 Carne (Novillos / Ceba)</option>
+                    <option value="doble_proposito">⚖️ Doble Propósito</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="selectZona">Zona Corporal Evaluada:</label>
+                  <select class="form-select" id="selectZona">
+                    <option value="ubre" selected>🐄 Pliegue Inguinal / Ubre</option>
+                    <option value="oreja">👂 Pabellón Auricular / Orejas</option>
+                    <option value="lomo">🐂 Lomo y Costillar</option>
+                    <option value="cuello">📿 Cuello y Papada</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">
+                  Peso Vivo Estimado: <strong id="valPeso" style="color:var(--primary);">450 kg</strong>
+                </label>
+                <input type="range" class="custom-range" id="inputPeso" min="150" max="850" step="10" value="450">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Dictamen Farmacológico y Prescripción Generada -->
+          <div id="prescriptionContainer">
+            <!-- Rellenado dinámicamente por app.js -->
+          </div>
+
+          <!-- Acciones de Campo -->
+          <div class="card no-print" style="margin-top:1rem;">
+            <div class="card-body" style="padding:1rem;">
+              <div class="btn-group" style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+                <button class="btn btn-primary" id="btnSaveHistory">
+                  <span>💾</span> Guardar en Historial
+                </button>
+                <button class="btn btn-dark" id="btnPrintReport">
+                  <span>🖨️</span> Imprimir / PDF
+                </button>
+              </div>
+              <button class="btn btn-outline btn-block" id="btnShareReport" style="margin-top:0.5rem;">
+                <span>📱</span> Compartir con Ganadero (WhatsApp)
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         PESTAÑA 2: HISTORIAL DE EVALUACIONES (registros_diagnostico)
+         ---------------------------------------------------------------------- -->
+    <section id="tab-historial" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">
+              <span>📊</span> Historial Clínico de Evaluaciones
+            </h2>
+            <p style="font-size:0.8rem; color:#64748b; margin-top:0.2rem;">
+              Registro epidemiológico persistente en LocalStorage según la Sección 8 del proyecto.
+            </p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary" id="btnExportHistory" style="font-size:0.8rem; padding:0.4rem 0.75rem;">
+              <span>📥</span> Exportar JSON
+            </button>
+            <button class="btn btn-outline" id="btnClearHistory" style="font-size:0.8rem; padding:0.4rem 0.75rem; color:#dc2626;">
+              <span>🗑️</span> Borrar Todo
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body" style="padding:0;">
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ID / Fecha</th>
+                  <th>Conteo &amp; Carga</th>
+                  <th>Severidad</th>
+                  <th>Propósito, Peso &amp; Clima</th>
+                  <th>1ª Elección Prescrita</th>
+                  <th>Molécula de Rotación</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                <!-- Inyectado dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="historyEmptyState" style="display:none; padding:3rem 1rem; text-align:center; color:#94a3b8;">
+            <div style="font-size:3rem; margin-bottom:0.5rem;">📂</div>
+            <p>No hay diagnósticos guardados en el historial aún.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         PESTAÑA 3: VADEMÉCUM ACARICIDA (Base de Datos Sección 8)
+         ---------------------------------------------------------------------- -->
+    <section id="tab-vademecum" class="tab-pane">
+      <div style="margin-bottom:1rem;">
+        <h2 style="font-size:1.3rem; font-weight:800; color:#0f172a;">📚 Vademécum Acaricida y Moléculas Químicas</h2>
+        <p style="font-size:0.85rem; color:#64748b;">
+          Tabla de Productos y Moléculas (<code>principios_activos</code>) con tiempos de retiro legal en leche/carne y mecanismos de acción.
+        </p>
+      </div>
+
+      <div id="vademecumContainer">
+        <!-- Renderizado dinámicamente -->
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         PESTAÑA 4: MODELO DE MACHINE LEARNING (Explicabilidad)
+         ---------------------------------------------------------------------- -->
+    <section id="tab-ia" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span>🤖</span> Arquitectura de Inteligencia Artificial (Sección 6)
+          </h2>
+          <span class="badge-tag">Random Forest + Visión Artificial</span>
+        </div>
+        <div class="card-body">
+          
+          <div style="display:grid; grid-template-columns:1fr; gap:1.25rem;">
+            
+            <div style="background:#f8fafc; padding:1.25rem; border-radius:12px; border:1px solid #e2e8f0;">
+              <h3 style="font-size:1.05rem; font-weight:800; color:#db2777; margin-bottom:0.5rem;">
+                1. Visión Artificial &amp; Suite de Conteo Multifuncional
+              </h3>
+              <p style="font-size:0.85rem; color:#334155; line-height:1.6;">
+                El motor visual permite tres modalidades de conteo zootécnico: <strong>IA Automática</strong> mediante segmentación adaptativa de contornos, <strong>Punteo Táctil Asistido</strong> para ajuste directo en campo, y <strong>Muestreo por Cuadrante Estándar 10x10 cm</strong> (Método MacLeod &amp; Wharton). Calcula el <strong>Índice de Carga Parasitaria (ICP)</strong>:
+              </p>
+              <div style="background:white; padding:0.75rem 1rem; border-radius:8px; border-left:4px solid #f472b6; font-family:monospace; font-size:0.9rem; margin:0.75rem 0;">
+                ICP (%) = (Área Ocupada por Garrapatas / Área Total Evaluada) × 100
+              </div>
+              <ul style="font-size:0.85rem; color:#475569; margin-left:1.25rem; line-height:1.5;">
+                <li><strong>Grado 1 (Leve):</strong> &lt; 15 garrapatas | ICP &lt; 3.0% (Infección focalizada).</li>
+                <li><strong>Grado 2 (Moderado):</strong> 15 a 40 garrapatas | ICP 3.0% - 8.5% (Ninfas y adultos difusos).</li>
+                <li><strong>Grado 3 (Severo):</strong> &gt; 40 garrapatas | ICP &gt; 8.5% (Riesgo inminente de anemia y babesiosis).</li>
+              </ul>
+            </div>
+
+            <div style="background:#f8fafc; padding:1.25rem; border-radius:12px; border:1px solid #e2e8f0;">
+              <h3 style="font-size:1.05rem; font-weight:800; color:#1e40af; margin-bottom:0.5rem;">
+                2. Motor Farmacológico con Entorno Bioclimático Dinámico
+              </h3>
+              <p style="font-size:0.85rem; color:#334155; line-height:1.6;">
+                Clasificador supervisado basado en un ensamble de árboles de decisión que evalúa el vector de características en tiempo real:
+              </p>
+              <div style="background:white; padding:0.75rem 1rem; border-radius:8px; border-left:4px solid #3b82f6; font-family:monospace; font-size:0.85rem; margin:0.75rem 0;">
+                Feature_Vector = [Grado_Infestación (1..3), Propósito (Leche/Carne/Doble), Temp_Ambiente (°C), Humedad_Relativa (%), Peso_Vivo (kg)]
+              </div>
+              <p style="font-size:0.85rem; color:#475569; line-height:1.5;">
+                Calcula además el <strong>Índice THI (Temperature-Humidity Index)</strong> para evaluar estrés térmico en el ganado y ajusta dinámicamente los <strong>días de descanso de potrero</strong> necesarios para romper la viabilidad de larvas en pasturas según la velocidad de evaporación y calor local.
+              </p>
+            </div>
+
+            <div style="background:#f8fafc; padding:1.25rem; border-radius:12px; border:1px solid #e2e8f0;">
+              <h3 style="font-size:1.05rem; font-weight:800; color:#92400e; margin-bottom:0.5rem;">
+                3. Algoritmo de Prevención de Resistencia Acárida
+              </h3>
+              <p style="font-size:0.85rem; color:#334155; line-height:1.6;">
+                Evita la inmunización de <em>Rhipicephalus microplus</em> prescribiendo en cada evaluación una <strong>Familia Química de Rotación para el Próximo Ciclo</strong> con mecanismo de acción celular diferente (ej. de Amidinas a Piretroides o a Inhibidores de Síntesis de Quitina IDQ).
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       Pie de Página
+       ========================================================================== -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Bye Bye Tick</strong> &mdash; Alerta Ganadera Inteligente
+      </div>
+      <div>
+        Desarrollado para el sector agropecuario y zootécnico &bull; Seminario de Proyecto de Grado 2026
+      </div>
+      <div>
+        <span class="footer-badge">✓ Compatible con GitHub Pages &bull; Mobile &amp; Desktop</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts de la Aplicación -->
+  <script src="js/data.js"></script>
+  <script src="js/samples.js"></script>
+  <script src="js/vision.js"></script>
+  <script src="js/recommendation.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    const pDate = document.getElementById("printDate");
+    if (pDate) pDate.textContent = new Date().toLocaleDateString();
+  </script>
+</body>
+</html>
